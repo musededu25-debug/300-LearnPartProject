@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单完整案例</title>
+</head>
+<body>
+   
+   
+   
+    <h2>用户登录与信息登记示例</h2>
+
+    <form action="#" method="post">
+        <!-- 1. 文本输入 -->
+        <label for="username">账号：</label>
+        <input type="text" id="username" name="username" placeholder="请输入账号">
+        <br><br>
+
+        
+
+        <!-- 2. 密码输入 -->
+        <label for="password">密码：</label>
+        <input type="password" id="password" name="password" placeholder="请输入密码">
+        <br><br>
+
+        <!-- 3. 单选框 -->
+        性别：
+        <label><input type="radio" name="gender" value="male"> 男</label>
+        <label><input type="radio" name="gender" value="female"> 女</label>
+        <br><br>
+
+        <!-- 4. 下拉选择框 -->
+        <label for="city">城市：</label>
+        <select id="city" name="city">
+            <option value="bj">北京</option>
+            <option value="sh">上海</option>
+        </select>
+        <br><br>
+
+        <!-- 5. 多行文本框 -->
+        <label for="desc">备注：</label><br>
+        <textarea id="desc" name="desc" rows="3" cols="25" placeholder="写点什么..."></textarea>
+        <br><br>
+
+        <!-- 6. 提交按钮 -->
+        <input type="submit" value="提交表单">
+    </form>
+
+    
+
+</body>
+</html>

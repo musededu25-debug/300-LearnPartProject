@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h3>用户注册</h3>
+
+    <form action="#">
+
+        <label for="pn">电话号码:</label>
+        <input type="text" name="userPhone" id="pn" placeholder="请输入11位手机号">
+        <br><br>
+
+        <label for="pwd">密码：</label>
+        <input type="password" name="password" id="pwd"  placeholder="请输入密码">
+        <br><br>
+
+        
+
+        性别：
+        <input type="radio" id="boy" name="userGender" value="1">
+        <label for="boy">男</label>
+
+        <input type="radio" name="userGender" id="girl" value="0">
+        <label for="girl">女</label>
+        <br><br>
+
+        爱好：
+        <input type="checkbox" name="Hobby" id="game" value="gaming">
+        <label for="game">游戏</label>
+
+        <input type="checkbox" name="Hobby" id="read" value="reading">
+        <label for="read">读书</label>
+        <br><br>
+
+        <label for="degree">最高学历</label>
+        <select id="degree" name="userDegree">
+            <option value="highSchool">高中</option>
+            <option value="bachelor">本科</option>
+            <option value="master">硕士</option>
+        </select>
+        <br><br>
+
+        <label for="desc">个人简介：</label>
+        <textarea name="message" id="desc" rows="4" cols="30" placeholder="简单介绍一下自己"></textarea>
+        <br><br>
+
+        <input type="submit" value="提交">
+        <br><br>
+    </form>
+
+
+</body>
+</html>

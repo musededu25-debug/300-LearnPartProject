@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单完整案例</title>
+</head>
+<body>
+   
+    <!-- 
+    ==================== 任务要求 ====================
+    请参考上方教学案例，仿写一个完整的用户注册表单：
+
+    1. 创建一个 <form action="#" method="post"> 容器。
+
+    2. 用户名输入：
+       - 使用 <label for="user">用户名：</label>
+       - 使用 <input type="text" id="user" placeholder="请输入用户名">
+
+    3. 密码输入：
+       - 使用 <label for="pwd">密码：</label>
+       - 使用 <input type="password" id="pwd" placeholder="请输入密码">
+
+    4. 性别单选（Radio）：
+       - 两个单选按钮：“男” 和 “女”，注意两个 input 的 name 必须都设置为 "gender"。
+
+    5. 兴趣爱好多选（Checkbox）：
+       - 两个多选按钮：“编程” 和 “看书”，两个 input 的 name 都设置为 "hobby"。
+
+    6. 所在城市下拉框（Select）：
+       - 使用 <select> 包含两个 <option>，选项文字为“北京”和“上海”。
+
+    7. 个人简介多行文本（Textarea）：
+       - 使用 <textarea rows="3" cols="30" placeholder="写点自我介绍..."></textarea>
+
+    8. 提交按钮：
+       - 使用 <input type="submit" value="立即注册">
+
+    提示：每个小项之间使用 <br><br> 换行，保证排版清晰。
+    ==================================================
+-->
+
+    <!-- 请在下方开始编写你的代码 -->
+    <h2>用户注册</h2>
+    <!-- 1. 创建一个 <form action="#" method="post"> 容器。 -->
+    <form action="#" method="post">
+
+    <label for="user">用户名:</label>
+    <input type="text" name="username" id="user" placeholder="请输入用户名">
+    <br><br>
+
+    <label for="pwd">密码：</label>
+    <input type="password" name="password" id="pwd" placeholder="请输入密码">
+    <br><br>
+    
+
+    <label><input type="radio" name="gender" id="nan">男</label>
+    <label ><input type="radio" name="gender" id="nv">女</label>
+    <br><br>
+
+    兴趣：
+    <label ><input type="checkbox" name="hobby" value="code">编程</label>
+    <label ><input type="checkbox" name="hobby" value="read">读书</label>
+    <br><br>
+
+    <label for="city">城市</label>
+    <select name="city" id="city">
+        <option value="sh">上海</option>
+        <option value="tj">天津</option>
+        <option value="bj">北京</option>
+    </select>
+    </form>
+
+
+
+</body>
+</html>
