@@ -1,0 +1,53 @@
+# =========================
+# IntelliJ IDEA 配置文件
+# =========================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# =========================
+# Java 编译与运行文件
+# =========================
+*.class
+*.log
+*.ctxt
+hs_err_pid*
+replay_pid*
+
+# =========================
+# 依赖打包与归档文件
+# =========================
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# =========================
+# Maven 构建工具
+# =========================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# =========================
+# Gradle 构建工具
+# =========================
+.gradle/
+build/
+
+# =========================
+# 操作系统缓存 (Mac/Windows)
+# =========================
+.DS_Store
+Thumbs.db
