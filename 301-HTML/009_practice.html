@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标准HTML5架构</title>
+</head>
+
+<!-- 
+第一部分：头部 + 标题 + 自我介绍
+
+1. 用语义标签 <header> 包住下面内容
+2. 一个 <h1>：「你好，我是 XXX」（用你的名字）
+3. 一段 <p> 自我介绍，要求：
+   - 用 <strong> 加粗你的身份/职业
+   - 用 <em> 倾斜你正在学的东西
+   - 用 <span> 包住你的城市（如 <span>深圳</span>），先不加样式，留给 CSS
+4. 下面加一条 <hr> 水平线
+5. 插一张头像 <img>，用网络图 https://picsum.photos/100，写 alt="我的头像"
+-->
+
+
+<body>
+    <header>
+        <h1>你好我是M</h1>
+
+        <p>
+            <strong>M,学生</strong>
+            <em>HTML</em>
+            <span>zz</span>
+            ” 这时他们已经走到了车门前，丁仪无力地靠着车门对泰勒说：“您的参谋部里应该有物理学家的。” 
+            “是的，诺贝尔奖获得者就有三名，他们对我说：如果说我们收集自然状态下低维展开的原于核——也就是宏原
+            子核——是原始人造出了弓箭的话，那三体人对微观粒子的低维展开就是掌握了导弹。三体文明对宏原子的理解
+            不知比人类高了多少层次，在他们面前使用这种武器——那些学者用了一句我不太懂的中国成语——叫班门弄斧。”
+             “你不相信他们的话？” “当然，从一般意义上说他们是对的，但宏原子核聚变是人类目前所掌握的最具威力的武器
+             ，我在战略上考虑它不是很正常的吗’” “那个委内瑞拉总统在电视上也这么说，他好像要搞微原子核聚变吧。” 
+             这时有人催丁仪上车，泰勒粗暴地制止了那人，拉着丁仪说：“弓箭也不至于就绝对不能战胜导弹——如果前者加上
+             人类的计谋的话，三体人在计谋方面与人类的差异，与我们和它们在科学技术上的差异一样大，人类用计谋
+        </p>
+        <br><br>
+
+        <hr>
+
+        <img src="https://picsum.photos/100" alt="我的头像">
+        
+    </header>
+    <br><br>
+
+<!-- 
+第二部分：导航 nav
+
+1. 用 <nav> + 无序列表 <ul> 做 3 个链接
+2. 每个链接必须放进 <li> 里（别把 <a> 直接塞进 <ul>）
+3. 三个：首页 / 关于我 / 联系我，href 先写 #，其中「关于我」加 target="_blank"
+-->
+    <nav>
+
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#" target="_blank">关于我</a></li>
+            <li><a href="#">联系我</a></li>
+        </ul>
+
+    </nav>
+    <br><br>
+
+<!-- 
+
+第三部分：我的技能 + 学习计划（列表）
+
+1. 一个 <h2>：「我的技能」，下面用 <ul> 列 3 个技能
+2. 一个 <h2>：「学习计划」，下面用 <ol> 列 3 步计划    
+-->
+    <h2>我的技能</h2>
+    <ul>
+        <li>Java</li>
+        <li>HTML</li>
+        <li>MySQL</li>
+    </ul>
+
+    <h2>学习计划</h2>
+    <ol>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Vue</li>
+    </ol>
+
+<!-- 
+
+第四部分：本周课表（表格，考 colspan）
+
+1. 一个 <h2>：「本周课表」
+2. <table border="1">：
+   - 第一行表头：<tr><th>时间</th><th>内容</th><th>状态</th></tr>
+   - 第二、三行用 <td>（别用 th）
+   - 最后一行 <td colspan="3"> 横跨 3 列，写「周末休息」
+    
+-->
+    <table border="1">
+        <tr>
+            <th>时间</th>
+            <th>内容</th>
+            <th>状态</th>
+        </tr>
+
+        <tr>
+            <td>星期一</td>
+            <td>HTML</td>
+            <td>一般</td>
+        </tr>
+
+        <tr>
+            <td>星期二</td>
+            <td>CSS</td>
+            <td>一般</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">周末休息</td>
+        </tr>
+
+
+    </table>
+    <br><br>
+
+
+<!-- 
+第五部分：常用工具（定义列表，考 dt/dd）
+
+1. 一个 <h2>：「常用工具」
+2. <dl> 写 3 个术语 + 解释（如 HTML / CSS / JavaScript，或 Git / VSCode / Homebrew）
+    
+    
+-->
+
+    <h2>常用工具</h2>
+    <dl>
+        <dt>HTML</dt>
+        <dd>前端</dd>
+        <dt>CSS</dt>
+        <dd>前端</dd>
+        <dt>Git</dt>
+        <dd>版本控制</dd>
+    </dl>
+    <br><br>
+<!-- 
+
+第六部分：联系我（表单，考 name / for / id / value）⭐
+
+1. 一个 <h2>：「联系我」
+2. <form action="#" method="post">，包含：
+   - 姓名：<label for> + <input type="text">，for 和 id 逐字母一致，加 placeholder
+   - 邮箱：<input type="email">（新学的），加 required
+   - 性别单选（男/女）：两个 name 一致、每个带 value、label 用 for/id 关联
+   - 爱好多选（至少 2 个）：name 一致、带 value
+   - 城市下拉框：<select> + 3 个 <option value>，其中一个加 selected
+   - 留言：<textarea>
+   - 提交按钮：<button type="submit">提交</button>（新学的）
+3. 写完这步，自己回头逐字母检查：所有 name 一致没、for 和 id 一模一样没    
+-->
+
+    <h2>联系我</h2>
+    <form action="#" method="post">
+        
+        <label for="name" >姓名：</label>
+        <input type="text" name="userName" id="name" placeholder="请输入你的名字">
+        <br>
+        
+        <label for="email">邮箱：</label>
+        <input type="email" name="userEmail" id="email" placeholder="请输入你的邮箱">
+        <br><br>
+
+        性别：
+        <input type="radio" name="userGender" id="male" value="male">
+        <label for="male">男</label>
+
+        <input type="radio" name="userGender" id="female" value="female" required>
+        <label for="female">女</label>
+
+        <br><br>
+
+        爱好：
+        <input type="checkbox" name="hobby" id="gamme" value="game">
+        <label for="game">游戏</label>
+        <input type="checkbox" name="hobby" id="read" value="read">
+        <label for="read">读书</label>
+        <br><br>
+
+        <label for="city">城市：</label>
+        <select name="userCity" id="city">
+            <option value="sh" selected>上海</option>
+            <option value="bj" selected>北京</option>
+            <option value="sz" selected>深圳</option>
+        </select>
+
+        <br><br>
+
+        <label for="desc">留言</label>
+        <textarea 
+        name="message" 
+        id="desc" 
+        placeholder="请输入你的留言"
+        cols="20"
+        rows="4"
+        
+        > </textarea>
+
+        <button type="submit">提交</button>
+
+    </form>
+
+    <br><br>
+
+    
+
+    <footer>版权所有&copy;2026 XXX</footer>
+</body>
+</html>

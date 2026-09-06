@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<!-- 
+A. 表格合并（治 colspan/rowspan 记反） 写一个 2 行 2 列的表格：第一行两个格子，第二行让「一个格子横跨两列」，格子里写「这一格用了 colspan」。写出来就说明你懂了。
+
+B. 定义列表（治 dt/dd 反了） 写一个 <dl>，解释 2 个词：「前端」（解释：做网页界面）和 「后端」（解释：处理数据和逻辑）。
+
+C. 单选组（治 name/for/id/value 拼写） 写一组「血型」单选：A / B / O / AB，共 4 个。
+要求四个 input 的 name 完全一致、每个都有对应的 label 且 for/id 逐字母对应、
+每个都带 value。写完自己回头逐字母检查一遍 name 和 for/id——这一步就是你最需要练的肌肉。
+
+-->
+<body>
+    
+    <table border="1">
+        <tr>
+            <th></th>
+            <td></td>
+        </tr>
+
+        <tr>
+            <th colspan="2"></th>
+        </tr>
+    </table>
+    <br><br>
+
+    <dl>
+        <dt>前端</dt>
+        <dd>做网页界面</dd>
+
+        <dt>后端</dt>
+        <dd>处理数据和逻辑</dd>
+        
+    </dl>
+    <br><br>
+
+    血型：
+    <input type="radio" name="userBlood" id="A" value="A">
+    <label for="A">A型</label>
+    <input type="radio" name="userBlood" id="B" value="B">
+    <label for="B">B型</label>
+    <input type="radio" name="userBlood" id="AB" value="AB">
+    <label for="AB">AB型</label>
+    <input type="radio" name="userBlood" id="O" value="O型">
+    <label for="O">O型</label>
+
+
+
+</body>
+</html>
