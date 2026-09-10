@@ -1,0 +1,45 @@
+<!-- 
+【业务场景】
+你需要开发一个后台管理系统左侧的“新闻列表”和底部的“提交按钮”。
+新闻标题经常太长，把页面撑破，产品经理要求超出的部分必须变成省略号（...）。
+提交按钮里的文字由于没对齐，看起来极度不专业。
+
+【开发需求】
+1. 创建一个 <div>，class 命名为 "news-title"，里面写一段很长的文字："重磅消息：公司今年的年终奖将翻倍发放，并且增加额外的15天带薪休假！"
+2. 创建一个 <div>，class 命名为 "submit-btn"，里面写文字："确认提交"。
+3. 编写 <style> 完成以下要求：
+   - 为 .news-title 设置：固定宽度 200px，背景色浅灰。
+   - 使用今天学的“文本截断三剑客”（white-space: nowrap; overflow: hidden; text-overflow: ellipsis;），让超出的文字变成省略号。
+   - 为 .submit-btn 设置：高度 height 40px，宽度 120px，背景色蓝色，文字颜色白色，文字水平居中（text-align）。
+   - 利用 line-height 属性，让 .submit-btn 里的文字在【垂直方向】上也完美居中。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单行截断与居中</title>
+    <style>
+        /* 在这里写你的 CSS */
+        .news-title{
+            width: 200px;
+            background-color: gray;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .submit-btn{
+            height: 40px;
+            width: 120px;
+            background-color: blue;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 在这里写你的 HTML -->
+     <div class="news-title">重磅消息：公司今年的年终奖将翻倍发放，并且增加额外的15天带薪休假！</div>
+     <div class="submit-btn">确认提交</div>
+</body>
+</html>

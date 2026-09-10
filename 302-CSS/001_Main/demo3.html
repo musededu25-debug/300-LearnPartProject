@@ -1,0 +1,32 @@
+<!-- 
+【业务场景】
+你接手了一个祖传老项目。页面上的一个警告提示文字，产品经理要求必须是橙色（orange），但它现在变成了别的颜色。
+
+【排错与修复需求】
+1. 观察下面的代码：标签选择器 p 设置了灰色，类选择器 .warning-text 设置了橙色，而元素本身还带了一个内联样式[cite: 1]，设置了绿色。
+2. 根据你笔记里记录的“内联 > 内部 > 外部”规则[cite: 1]，现在的字一定是绿色的。
+3. 你的任务：修改下方代码，使其最终显示为橙色（orange）。
+4. 约束条件：绝对不允许删除或修改 <style> 标签内的任何 CSS 代码！只能在 <body> 内部想办法调整 HTML 结构。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        p {
+            color: gray;
+        }
+        
+        .warning-text {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- <p class="warning-text" style="color: green;">系统即将断开连接，请立刻保存数据！</p> -->
+    <p class="warning-text" style="color: orange;">系统即将断开连接，请立刻保存数据！</p>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- 
+【业务场景】
+双十一大促，需要你独立开发一个“商品推荐卡片”。
+
+【终极需求】
+1. 创建一个外部大容器 <div>，类名为 "product-card"。
+2. 在大容器内部，按顺序放置：
+   - 标题：<h3> 标签，内容 "MacBook Pro 16寸"。
+   - 描述：<p> 标签，类名为 "desc"，内容 "M2 Max 芯片，性能猛兽"。
+   - 价格区：创建一个 <div> 容器，类名为 "price-box"。
+     - 价格区内放两个 <span> 标签，一个是 "¥14999" (类名 old-price)，一个是 "¥9999" (类名 new-price)。
+
+【CSS 视觉要求（请全部写在 <style> 标签内）】
+- .product-card：宽度 300px，外边距 margin 设为 0 auto 让卡片居中，增加 1px 实线浅灰色边框，圆角 10px，内边距 padding 设为 20px。
+- <h3> 标题：文字居中。
+- .desc：文字颜色设为灰色，字号 14px，文字居中。
+- .price-box：开启 display: flex，并且使用 justify-content: space-between 让里面的两个价格【左右两端对齐】。
+- .old-price：灰色文字，14px，必须有【删除线】效果。
+- .new-price：红色文字，24px，必须【加粗】。
+
+敢不敢不看任何提示，直接写出完整的 HTML + CSS？
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<!-- 
+【CSS 视觉要求（请全部写在 <style> 标签内）】
+- .product-card：宽度 300px，外边距 margin 设为 0 auto 让卡片居中，增加 1px 实线浅灰色边框，圆角 10px，内边距 padding 设为 20px。
+- <h3> 标题：文字居中。
+- .desc：文字颜色设为灰色，字号 14px，文字居中。
+- .price-box：开启 display: flex，并且使用 justify-content: space-between 让里面的两个价格【左右两端对齐】。
+- .old-price：灰色文字，14px，必须有【删除线】效果。
+- .new-price：红色文字，24px，必须【加粗】。    
+-->
+
+    <style>
+        .product-card{
+            width: 300px;
+            margin: 0 auto;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        h3{
+            text-align: center;
+        }
+        /* .desc：文字颜色设为灰色，字号 14px，文字居中。 */
+        .desc{
+            color: gray;
+            font-size: 14px;
+            text-align: center;
+        }
+        /* .price-box：开启 display: flex，
+        并且使用 justify-content: space-between 让里面的两个价格【左右两端对齐】。 */
+        .price-box{
+            display: flex;
+            justify-content: space-between;
+        }
+/* .old-price：灰色文字，14px，必须有【删除线】效果。
+- .new-price：红色文字，24px，必须【加粗】。   */
+        .old-price{
+            color:gray;
+            font-size:14px;
+            text-decoration:line-through;
+        }
+
+        .new-price{
+            color:red;
+            font-size:24px;
+            font-weight:bold;
+        }
+
+    </style>
+</head>
+<body>
+<!-- 1. 创建一个外部大容器 <div>，类名为 "product-card"。 -->
+    <div class="product-card">
+
+<!-- 
+2. 在大容器内部，按顺序放置：
+   - 标题：<h3> 标签，内容 "MacBook Pro 16寸"。
+   - 描述：<p> 标签，类名为 "desc"，内容 "M2 Max 芯片，性能猛兽"。
+   - 价格区：创建一个 <div> 容器，类名为 "price-box"。
+     - 价格区内放两个 <span> 标签，一个是 "¥14999" (类名 old-price)，一个是 "¥9999" (类名 new-price)。
+-->
+        <h3>MacBOOK Pro 16 寸</h3>
+
+        <p class="desc">M2 Max 芯片，性能猛兽</p>
+
+        <div class="price-box" >
+            <span class="old-price">¥ 14999</span>
+            
+            <span class="new-price">¥ 9999</span>
+
+        </div>
+        
+    </div>
+    
+</body>
+</html>

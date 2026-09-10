@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- 
+【业务场景】
+电商商品的详情页需要设计一个“价格展示”模块，通过新旧价格的强烈视觉对比来刺激用户购买。
+
+【开发需求】
+1. 在 <body> 标签内部创建两个 <p> 标签。
+2. 第一个 <p> 标签的 class 命名为 "price-old"，文字内容为："原价：¥999"。
+3. 第二个 <p> 标签的 class 命名为 "price-new"，文字内容为："限时特价：¥299"。
+4. 编写 <style> 内部样式表，完成以下视觉要求：
+   - 为 .price-old 设置：字体大小 14px，颜色为灰色（gray），并加上【删除线】效果。
+   - 为 .price-new 设置：字体大小 28px，字体加粗，颜色为红色（red）。
+5. 思考题：尝试用你笔记中学过的“标签选择器”，用最少的代码让这两个 <p> 标签的文字都在页面上【居中对齐】。
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .price-old{
+            font-size: 14px;
+            color: gray;
+            text-decoration: line-through;
+        }
+
+        .price-new{
+            font-size: 28px;
+            font-weight: bold;
+            color: red;
+        }
+        p{
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <p class="price-old">原价：¥ 999</p>
+    
+    <p class="price-new">限时特价：¥ 299</p>
+    
+</body>
+</html>
