@@ -9,6 +9,7 @@ package com.fufu.Desigin;
 
 public class DefaultSpecificSkin extends AbstractSkin{
 
+
     @Override
     public void disPlay() {
         System.out.printf("默认皮肤");
