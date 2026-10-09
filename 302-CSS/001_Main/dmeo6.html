@@ -1,0 +1,70 @@
+<!-- 
+【业务场景】
+你需要开发一个手机 App 的“全屏广告弹窗”。
+1. 遮罩层必须永远铺满整个屏幕。
+2. 广告卡片不能是固定宽度，必须占屏幕宽度的 80%，以适应大小不同的手机。
+3. 交互细节与精准打击（填补上一关的坑）：关闭按钮需要有悬停特效，并且只有一级的标题文字需要变红。
+
+【开发需求】
+1. 为 .overlay 补充宽度（使用 vw）和高度（使用 vh），使其占满全屏。
+2. 为 .modal 补充宽度（使用 %），使其占父容器的 80%。
+3. 利用伪类选择器，让 .close-btn 鼠标悬停（hover）时背景变成红色。
+4. 利用子代选择器（>），只让 .modal 直属的第一层 <p> 标签文字变红（千万不要误伤到 div 里面的提示 p 标签）。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>响应式与交互</title>
+    <style>
+        /* 1. 铺满全屏的遮罩层 */
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.5); /* 黑色半透明背景 */
+            /* 补充：宽度 100vw，高度 100vh */
+            width: 100vw;
+            height: 100vh;
+            
+        }
+
+        /* 2. 宽度自适应的弹窗盒子 */
+        .modal {
+            background-color: white;
+            margin: 0 auto; /* 让卡片水平居中 */
+            /* 补充：宽度 80% */
+            width: 50%;
+            
+        }
+
+        /* 3. 关闭按钮基础样式与悬停特效 */
+        .close-btn {
+            background-color: gray;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+        /* 补充：请在这里写 .close-btn 的 :hover 伪类代码，背景色设为 red */
+        
+
+        /* 4. 精准打击：子代选择器 */
+        /* 补充：请在这里写选择器代码，只让 .modal 直属的 p 变红（color: red;） */
+        
+
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="modal">
+            <!-- 这个 p 是 .modal 的直属子节点（亲儿子），要求变红 -->
+            <p>恭喜获得双十一大红包！</p>
+
+            <div>
+                <!-- 这个 p 嵌套在 div 里，是 .modal 的孙子节点，要求保持默认黑色 -->
+                <p>请在24小时内使用，逾期作废。</p>
+            </div>
+
+            <div class="close-btn">关闭弹窗</div>
+        </div>
+    </div>
+</body>
+</html>
