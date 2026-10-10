@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>fufu-spring-demo1</module>
+        <module>fufu-spring-demo2</module>
     </modules>
 
     <properties>

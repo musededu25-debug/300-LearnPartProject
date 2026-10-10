@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Spring 配置文件（XML 配置方式）。
+
+    【它是什么】
+    这就是"Spring 容器"的说明书：告诉 Spring 要创建哪些对象、
+    对象之间谁依赖谁。Spring 启动时会读取这个文件，
+    把里面声明的对象全部 new 出来放进容器（这些对象叫做 Bean）。
+
+    【什么是 IoC 容器】
+    以前：AccountServiceImpl 想用 AccountDao，得自己 new AccountDaoImpl()
+    现在：对象都由容器创建，需要谁就"注入"给谁 —— 控制权反转了
+
+    【命名由来】
+    ClassPathXmlApplicationContext("applicationContext.xml") 里的字符串，
+    指的是"类路径（classpath）"根目录下的这个文件。
+    对应到 Maven 项目就是 src/main/resources/applicationContext.xml
+    （打包后 resources 里的文件会被放到 classes 根目录，所以直接写文件名即可）。
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        第 1 个 Bean：持久层实现
+          id    = 这个对象在容器里的唯一名字，之后靠它来取/来引用
+          class = 完整类名（包名 + 类名），Spring 用反射 new 出这个类的对象
+
+        等价于 Java 代码：AccountDao accountDao = new AccountDaoImpl();
+        但注意：是 Spring 帮你 new，不是你 new。
+    -->
+    <!--
+        ★ 换实现实验 ★
+        把下面 class 末尾的 AccountDaoImpl 改成 AccountDaoImpl2，再跑一次测试，
+        你会看到输出从 "add account success!" 变成 "【第 2 套实现】..."，
+        而 AccountServiceImpl / TestAccount 的 Java 代码一个字都不用改。
+
+        这就是"面向接口 + IoC"的价值：变化被隔离在配置文件这一行里。
+    -->
+    <bean id="accountDao" class="com.fufu.dao.impl.AccountDaoImpl"></bean>
+
+    <!--
+        第 2 个 Bean：业务层实现
+
+        <property name="accountDao" ref="accountDao">
+          这是【setter 注入】，把上面那个 Bean 注入进来。
+          - name = Java 类里的属性名 accountDao
+                   Spring 会据此找 setAccountDao(...) 这个 setter 方法
+                   所以类里必须有无参构造 + setter，缺一不可
+          - ref  = reference（引用），值是【另一个 Bean 的 id】
+                   即上面那个 accountDao，表示"注入一个已存在的对象"
+
+        对比：<property name="xxx" value="abc">
+          ref   用于注入【对象】（指向另一个 Bean）
+          value 用于注入【基本类型/字符串】
+
+        等价于 Java 代码：
+          AccountServiceImpl s = new AccountServiceImpl();
+          s.setAccountDao(accountDao);
+    -->
+    <bean id="accountService" class="com.fufu.service.impl.AccountServiceImpl">
+
+        <property name="accountDao" ref="accountDao"></property>
+
+    </bean>
+
+</beans>
