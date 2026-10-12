@@ -1,6 +1,7 @@
 package com.fufu.dao.impl;
 
 import com.fufu.dao.AccountDao;
+import org.springframework.stereotype.Repository;
 
 /**
  * AccountDao 接口的实现类，也就是真正干活的"持久层实现"。
@@ -13,6 +14,7 @@ import com.fufu.dao.AccountDao;
  *
  * 对比：如果是注解方式，这里会写 @Repository，那才叫侵入式。
  */
+@Repository( value = "accountDao")
 public class AccountDaoImpl implements AccountDao {
 
     /**

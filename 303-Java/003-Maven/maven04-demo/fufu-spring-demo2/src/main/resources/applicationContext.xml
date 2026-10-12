@@ -19,7 +19,8 @@
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--
         第 1 个 Bean：持久层实现
@@ -37,7 +38,7 @@
 
         这就是"面向接口 + IoC"的价值：变化被隔离在配置文件这一行里。
     -->
-    <bean id="accountDao" class="com.fufu.dao.impl.AccountDaoImpl"></bean>
+<!--    <bean id="accountDao" class="com.fufu.dao.impl.AccountDaoImpl"></bean>-->
 
     <!--
         第 2 个 Bean：业务层实现
@@ -58,10 +59,36 @@
           AccountServiceImpl s = new AccountServiceImpl();
           s.setAccountDao(accountDao);
     -->
-    <bean id="accountService" class="com.fufu.service.impl.AccountServiceImpl">
+<!--    <bean id="accountService" class="com.fufu.service.impl.AccountServiceImpl">-->
 
-        <property name="accountDao" ref="accountDao"></property>
+<!--        <property name="accountDao" ref="accountDao"></property>-->
 
-    </bean>
+<!--    </bean>-->
+
+    <!--
+        ══════════════════════════════════════════════════════════════
+        组件扫描：告诉 Spring 去哪些包里自动找 @Service / @Repository 等注解
+
+        【base-package 决定扫描的起点，会递归扫描子包】
+        原来写的是 base-package="com.fufu"，这会把 com.fufu 下的【所有】子包都扫一遍，
+        包括 com.fufu.exp4 —— 那里面有一个 HISRequestAndViewController，
+        带着 @Configuration @EnableWebMvc，是一个【独立的 Spring MVC 小项目】。
+
+        于是它被误装配进这个 IoC 练习的容器里，连带加载 spring-webmvc，
+        又因为 pom 里 spring-webmvc(5.3.30) 和 spring-context(7.1.0-M1) 版本不一致，
+        直接抛 NoClassDefFoundError: MimeType$SpecificityComparator。
+
+        【教训】base-package 只写你真正要扫描的包，不要图省事写成最外层的 com.fufu。
+        扫描范围过宽 = 把无关的配置类也拖进容器，报错位置离真正原因很远，极难排查。
+
+        【为什么 exp4 不需要被这里扫到？】
+        它自己带着 @ComponentScan(basePackages = "com.fufu.exp4")，
+        是自给自足的，应该用它自己的入口（AnnotationConfigApplicationContext）启动。
+        两个应用各有各的容器，不该混在一个 applicationContext.xml 里。
+
+        【多个包用逗号分隔】也可以用通配符，如 com.fufu.*.impl
+        ══════════════════════════════════════════════════════════════
+    -->
+    <context:component-scan base-package="com.fufu"></context:component-scan>
 
 </beans>

@@ -52,6 +52,62 @@
             <scope>test</scope>
         </dependency>
 
+
+        <!--
+            ══════════════════════════════════════════════════════════════════
+            ⚠️ 已知问题（暂不修复，但运行 exp4 时一定会踩到）
+
+            spring-context  是 7.1.0-M1   （7.x 线）
+            spring-webmvc   是 5.3.30     （5.x 线）
+            两者【不兼容】，不能混用。
+
+            【为什么会冲突】
+            spring-webmvc 5.3.30 依赖的 spring-core 也是 5.3.30，
+            但 Maven 的"就近原则"让 spring-context 7.1.0-M1 带进来的
+            spring-core 7.1.0-M1 胜出，于是变成：
+                spring-webmvc 5.3.30 跑在 spring-core 7.1.0-M1 上
+
+            Spring 7 删掉了一些 5.x 里的类，比如 MimeType 的内部类 SpecificityComparator，
+            所以一旦加载 spring-webmvc，就会抛：
+                java.lang.NoClassDefFoundError: org/springframework/util/MimeType$SpecificityComparator
+
+            【当前为什么没报错】
+            applicationContext.xml 里的 component-scan 已经收窄到
+            com.fufu.dao,com.fufu.service，不会扫到 com.fufu.exp4，
+            所以这个 IoC 练习的测试碰不到 spring-webmvc。
+
+            【什么时候会炸】
+            运行 exp4/HISRequestAndViewController 的 main 方法时
+            （它带 @EnableWebMvc，必须加载 spring-webmvc）。
+
+            【修的时候怎么选】
+            exp4 只 import 了 org.springframework.* 和 Jackson，没有直接用 javax.servlet，
+            而这些包名在 Spring 5/6/7 里是一致的，所以改起来不难。
+            推荐两者统一到 6.2.x（稳定、官方支持 Java 21），
+            同时把下面的 servlet API 换成 jakarta.servlet-api。
+            详见 applicationContext.xml 里 component-scan 上方的注释。
+            ══════════════════════════════════════════════════════════════════
+        -->
+        <!-- 1. Spring MVC 核心 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.3.30</version>
+        </dependency>
+
+        <!-- 2. Jackson 核心库（必须！提供 @ResponseBody 对象的 JSON 自动序列化支持） -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.5</version>
+        </dependency>
+
+        <!-- 3. Servlet API（去掉 provided 作用域，确保本地直接运行 main 方法时不报错） -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>

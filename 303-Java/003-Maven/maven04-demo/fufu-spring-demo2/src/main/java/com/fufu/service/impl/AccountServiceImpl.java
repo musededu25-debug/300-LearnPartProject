@@ -2,6 +2,9 @@ package com.fufu.service.impl;
 
 import com.fufu.dao.AccountDao;
 import com.fufu.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 /**
  * 业务层实现类 —— 这个类是被 Spring 容器管理的 Bean。
@@ -28,6 +31,7 @@ import com.fufu.service.AccountService;
  *
  * 所以这里删掉了带参构造，只保留 setter，与 XML 的写法保持一致。
  */
+@Service(value = "accountService")
 public class AccountServiceImpl implements AccountService {
 
     /**
@@ -59,16 +63,44 @@ public class AccountServiceImpl implements AccountService {
     /**
      * setter 方法 —— Spring 靠它完成【依赖注入】。
      *
-     * XML 里的 ref="accountDao" 就是告诉 Spring：
-     *   把容器里 id 为 accountDao 的那个 Bean 对象，
-     *   作为参数传进来调用这个方法。
+     * ══════════════════════════════════════════════════════════
+     * 【从 XML 切到注解，这一步是必须补上的】
      *
-     * 注意方法名必须是 setXxx，Spring 才能根据
-     * <property name="xxx"> 反推出对应的 setter（JavaBean 命名规范）：
-     *   <property name="accountDao"> → setAccountDao(...)
-     * 名字对不上，Spring 就会报 "Bean property 'xxx' is not writable"。
+     * 你之前 XML 里写的是：
+     *     <property name="accountDao" ref="accountDao"/>
+     * 那一行本身就是"注射指令" —— 它告诉 Spring "调用 setAccountDao 并传入 accountDao"。
+     *
+     * 现在你把手写的 <bean> 全注释掉了，改成 <context:component-scan> 自动扫描。
+     * 扫描只能发现"类"，它【不知道】哪些属性需要被注入：
+     *     @Service  = "这个类归你管，帮我 new 出来"
+     *     但没写 @Autowired 的话，Spring 只会 new 出对象，
+     *     然后 setAccountDao 这个方法【根本不会被调用】，accountDao 就一直是 null。
+     *
+     * 结果：启动不报错，但一执行 add() 里的 accountDao.addAccount() 就抛
+     *     NullPointerException
+     * —— 比启动报错更难查，因为异常位置和真正的原因（漏了 @Autowired）隔得很远。
+     *
+     * 所以注解模式下，注入点必须显式标记 @Autowired。
+     * ══════════════════════════════════════════════════════════
+     *
+     * 【@Autowired 是怎么找对象的？】
+     * 默认【按类型找】：容器里谁是 AccountDao 类型，就注入谁。
+     * 但你现在有两个实现类（accountDao、accountDao2），类型都是 AccountDao，
+     * Spring 找到两个候选，就会抛 NoUniqueBeanDefinitionException（不唯一）。
+     *
+     * 所以要用 @Qualifier("accountDao") 明确指定"我要名字叫 accountDao 的那个"。
+     *
+     * 【一个容易忽略的细节】
+     * @Qualifier 写在【参数】上而不是方法上 —— 方法只有一个参数时两者效果一样，
+     * 但参数位置是更规范、更不容易出错的写法（多参数时必须写在参数上）。
+     *
+     * 【顺带一提】如果容器里只有一个 AccountDao，@Autowired 可以省略 @Qualifier；
+     * 甚至字段名恰好等于 Bean 名字时 Spring 也会兜底按名字匹配。
+     * 但那种"隐式生效"很脆弱 —— 以后多来一个实现类就悄悄换人了，
+     * 所以初学者建议：只要有多实现，就老老实实写 @Qualifier。
      */
-    public void setAccountDao(AccountDao accountDao) {
+    @Autowired
+    public void setAccountDao(@Qualifier("accountDao") AccountDao accountDao) {
         this.accountDao = accountDao;
     }
 
