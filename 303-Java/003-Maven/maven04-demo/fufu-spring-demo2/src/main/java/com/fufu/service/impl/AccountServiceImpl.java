@@ -4,6 +4,7 @@ import com.fufu.dao.AccountDao;
 import com.fufu.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,6 +33,7 @@ import org.springframework.stereotype.Service;
  * 所以这里删掉了带参构造，只保留 setter，与 XML 的写法保持一致。
  */
 @Service(value = "accountService")
+@Scope(value = "singleton")
 public class AccountServiceImpl implements AccountService {
 
     /**
@@ -44,7 +46,9 @@ public class AccountServiceImpl implements AccountService {
      * 控制权已经从"我自己 new"反转给了"容器帮我 new"——
      * 这就是"控制反转（IoC）"这个名字的由来。
      */
-    private AccountDao accountDao;
+    @Autowired
+    @Qualifier("accountDao2")
+    AccountDao accountDao;
 
     /**
      * 无参构造方法。
@@ -99,10 +103,10 @@ public class AccountServiceImpl implements AccountService {
      * 但那种"隐式生效"很脆弱 —— 以后多来一个实现类就悄悄换人了，
      * 所以初学者建议：只要有多实现，就老老实实写 @Qualifier。
      */
-    @Autowired
-    public void setAccountDao(@Qualifier("accountDao") AccountDao accountDao) {
-        this.accountDao = accountDao;
-    }
+//    @Autowired
+//    public void setAccountDao(@Qualifier("accountDao") AccountDao accountDao) {
+//        this.accountDao = accountDao;
+//    }
 
     /**
      * 业务方法实现。
