@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
  *
  * 对比：如果是注解方式，这里会写 @Repository，那才叫侵入式。
  */
+
 @Repository( value = "accountDao")
 public class AccountDaoImpl implements AccountDao {
 
