@@ -1,11 +1,8 @@
 package com.fufu;
-
 import com.fufu.dao.impl.AccountDaoImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-public class TestAccount {
+import org.springframework.context.support.ClassPathXmlApplicationContext;public class TestAccount {
 
     @Test
     public void test01(){
