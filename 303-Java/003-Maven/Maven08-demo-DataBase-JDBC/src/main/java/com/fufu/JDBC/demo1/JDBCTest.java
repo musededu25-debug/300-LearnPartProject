@@ -8,11 +8,16 @@ public class JDBCTest {
         //http://baidu.com
         //端口后面是数据库的名称
 //        String url = "jdbc:mysql://124.220.74.123:3306/lesson:serverTimezone=Asia/Shanghai";
+//        String url = "jdbc:mysql://127.0.0.1:3307/lesson"
+//                + "?useSSL=false"
+//                + "&allowPublicKeyRetrieval=true"
+//                + "&serverTimezone=Asia/Shanghai"
+//                + "&characterEncoding=utf8";
+
         String url = "jdbc:mysql://127.0.0.1:3307/lesson"
-                + "?useSSL=false"
-                + "&allowPublicKeyRetrieval=true"
-                + "&serverTimezone=Asia/Shanghai"
-                + "&characterEncoding=utf8";
+                + "?connectionTimeZone=Asia/Shanghai"
+                + "&sslMode=DISABLED"
+                + "&allowPublicKeyRetrieval=true";
 
         String userName = "root";
 

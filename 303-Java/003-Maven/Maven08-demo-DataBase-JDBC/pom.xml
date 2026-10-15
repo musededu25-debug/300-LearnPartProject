@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fufu</groupId>
-    <artifactId>Maven08-demo-DataBase-JDBC</artifactId>
+    <artifactId>maven08-demo-DataBase-JDBC</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
