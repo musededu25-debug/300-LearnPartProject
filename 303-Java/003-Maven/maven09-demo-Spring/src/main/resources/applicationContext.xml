@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="accountDao" class="com.fufu.dao.impl.AccountDaoImpl"></bean>
+    <!--
+        【BUG 修复】原写法 xmlns:context="http://www.springframework.org/schema/c"
+        少了 "ontext" —— 正确命名空间是 http://www.springframework.org/schema/context
 
-    <bean id="accountService" class="com.fufu.Service.impl.AccountServiceImpl">
-        <property name="accountDao" ref=""></property>
-    </bean>
+        这个 URI 是 Spring 的"暗号"，不是网址，不会被真的去访问。
+        spring-context-7.0.9.jar 里的 META-INF/spring.schemas 有一张映射表：
+            http://www.springframework.org/schema/context/spring-context.xsd
+                = org/springframework/context/config/spring-context.xsd
+        Spring 读配置时拿你写的 URI 去这张表里查，查不到就不知道 <context:> 该由谁来解析，
+        于是报 "Unable to locate Spring NamespaceHandler for XML schema namespace"。
+        你写的 .../schema/c 当然查不到，所以标签一直红着、也没法补全。
+
+        同时 xsi:schemaLocation 里也必须成对补上 context 的地址，
+        否则 IDEA 做 XML 校验时找不到 XSD，标签照样报红。
+
+    【顺手修复】标签名拼错了：<context:compone-scan> 少了字母 t，
+        正确的是 <context:component-scan>；而且原来的标签没写完也没闭合，
+        XML 本身就无法解析（会直接抛 SAXParseException）。
+    -->
+    <context:component-scan base-package="com.fufu"/>
+
+    <!--
+        原来基于 XML 的显式装配，现在被上面的包扫描取代，留作对照：
+        <bean id="accountDao" class="com.fufu.dao.impl.AccountDaoImpl"></bean>
+        <bean id="accountService" class="com.fufu.Service.impl.AccountServiceImpl">
+            <property name="accountDao" ref="accountDao"></property>
+        </bean>
+
+        对照关系：@Repository(value="accountDao") 等价于 <bean id="accountDao">
+                  @Service(value="accountService")  等价于 <bean id="accountService">
+    -->
 
 </beans>
