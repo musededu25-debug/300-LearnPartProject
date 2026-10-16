@@ -3,6 +3,7 @@ package com.fufu.Service.impl;
 import com.fufu.Service.AccountService;
 import com.fufu.dao.AccountDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,7 +31,9 @@ public class AccountServiceImpl implements AccountService {
      * 所以不用再额外配一行。
      */
     @Autowired
+    @Qualifier(value = "accountDao")
     private AccountDao accountDao;
+
 
     @Override
     public void add() {

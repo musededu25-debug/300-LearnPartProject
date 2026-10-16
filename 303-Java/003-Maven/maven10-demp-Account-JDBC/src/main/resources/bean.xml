@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 1. 配置 Service -->
+    <bean id="accountService" class="com.fufu.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+
+    <!-- 2. 配置 Dao -->
+    <bean id="accountDao" class="com.fufu.dao.impl.AccountDaoImpl">
+        <property name="runner" ref="runner"/>
+    </bean>
+
+    <!-- 3. 配置 QueryRunner（原型/多例模式） -->
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+        <constructor-arg name="ds" ref="dataSource"/>
+    </bean>
+
+    <!-- 4. 配置你的 C3P0 数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+        <!-- 注意：这里的 & 必须转义为 &amp; -->
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3307/lesson?connectionTimeZone=Asia/Shanghai&amp;sslMode=DISABLED&amp;allowPublicKeyRetrieval=true"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+</beans>

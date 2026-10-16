@@ -1,7 +1,6 @@
-package com.fufu.Test;
+package com.fufu.test;
 
 import com.fufu.dao.AccountDao;
-import com.fufu.dao.impl.AccountDaoImpl;
 import com.fufu.service.AccountService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
