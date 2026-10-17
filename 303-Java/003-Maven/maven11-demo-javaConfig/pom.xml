@@ -21,6 +21,15 @@
             <artifactId>spring-context</artifactId>
             <version>7.0.9</version>
         </dependency>
+
+<!--        spring整合junit-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>7.0.9</version>
+            <scope>test</scope>
+        </dependency>
+
         <!--        dbutils组件依赖-->
         <dependency>
             <groupId>commons-dbutils</groupId>
