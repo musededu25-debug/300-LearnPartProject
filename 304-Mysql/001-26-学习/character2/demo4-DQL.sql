@@ -52,4 +52,35 @@ alter table student rename as stu;
 -- 按性别分组分数大于80的(有错，不能这样）
 --select * from stu where score between 60 and 80 group by sex,age;
 
--- 看成绩大于80
+-- 看成绩大于80的人数
+select count(*) from stu  where score>80;
+
+-- 不及格人数和总分
+select count(*) '不及格人数',sum(score) '不及格人的总分' from stu where score<60;
+
+-- 学生表中男生女生其他学生的平均分
+select sex ,avg(score) from stu group by sex;
+
+-- 学生表中看最大年龄的人
+select max(age) from stu;
+
+select name from stu where age=(select max(age) from stu);
+
+-- 找最小分数
+select min(score) from stu;
+
+select name ,sex ,score from stu where score=(select min(score) from stu);
+
+-- 20-30学生信息并按照性别分组，找出组里平均成绩大于74的组
+select sex,avg(score) from stu where age between 20 and 30 group by sex having avg(score)>74;
+
+-- 18-30之间的学生信息并按照成绩高到低
+select * from stu where age between 18 and 30 order by score desc;
+
+-- 删表
+truncate table stu;
+drop table if exists stu;
+
+
+-- 删库
+drop database if exists exercise;
