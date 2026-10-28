@@ -90,3 +90,7 @@ select name from stu where char_length(name)=4;
 
 select stu_name from score where mod(score,10)=0;
 
+
+-- 删库
+drop database if exists exercise;
+
