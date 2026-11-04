@@ -1,4 +1,4 @@
-package com.fufu;
+package com.fufu.demo1;
 
 /**
  *

@@ -1,48 +1,60 @@
-# 文件是文件名加引号数字
+#!/bin/sh
 
-#跳转用户家目录
-cd ~
+# 记录脚本启动时所在目录（chapter1）
+START_DIR=$(pwd)
+TEMP_DIR="$START_DIR/temp"
 
-# 创建temp文件夹
-mkdir temp
-cd temp
+echo "创建并进入temp文件夹"
+# 重复运行时先清掉旧 temp，保证从干净状态开始
+rm -rf -- "$TEMP_DIR"
+mkdir "$TEMP_DIR"
+cd "$TEMP_DIR" || exit 1
 
-#创建文件并验证
+echo "--- 创建文件并验证 ---"
 echo "hello" > a.txt
 echo "hello" > b.txt
 ls -li
 
-# 创建硬连接
+echo "--- 创建硬链接 ---"
 ln a.txt abc
 ls -li
 
+echo "--- 改 a.txt 内容，abc 看到同样内容 ---"
 cat a.txt
 echo "123456" > a.txt
 cat abc
 
-# 删除看看连接还能不能看
+echo "--- 删除 a.txt，硬链接 abc 仍可用 ---"
 rm a.txt
 cat abc
 
-# mv 就是建立一个硬连接并把原来的连接删除掉,#也就是ln-li的inode号不变
+echo "--- mv 改名，inode 不变 ---"
 ls -li
 mv b.txt fun.txt
 ls -li
 
-
-# 软连接 ls 查看详细信息的时候前面是l开头lrwxr-xr-x@ l代表软连接
+echo "--- 创建软链接 ---"
+# 先创建 c.txt，避免 link 悬空
+echo "c-file" > c.txt
 ln -s c.txt link
 ls -li
-# 其中7538227 lrwxr-xr-x@ 1 m  staff  5 Oct 24 10:15 link -> c.txt 可以看出来link的大小是5里面存放的就是c.txt这5个字符的字符串
 
-
-# 软连接的风险，mv改名
+echo "--- 软链接风险：mv 改名后 link 悬空 ---"
+mv c.txt c_renamed.txt
 ls -li
-mv b.txt web
+# 此时 link -> c.txt 已经悬空
+cat link 2>&1 || echo "cat link 失败：软链接目标 c.txt 不存在"
+
+echo "--- 删除 b.txt 到 web 的演示（b.txt 已改名，这里用 fun.txt） ---"
+mkdir -p web
+mv fun.txt web/
 ls -li
-cd link
-# 如下所示
-# /Users/m/Home/300-ProjectHome/300-LearnPartProject/305-Linux/01-OS/chapter1/demo1.sh:cd:43:
-# no such file or directory: link
+ls -li web
 
-
+echo "--- 回到起始目录，删除 temp ---"
+cd "$START_DIR" || exit 1
+pwd
+ls -ld temp
+rm -rf -- "$TEMP_DIR"
+echo "删除后："
+ls -ld temp 2>&1 || echo "temp 已不存在"

@@ -1,4 +1,6 @@
-import com.fufu.Student;
+package demo1;
+
+import com.fufu.demo1.Student;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,7 +18,7 @@ public class StudentTest {
         System.out.println(c1.getName());
         System.out.println(c1.getSimpleName());
 
-        Class c2 = Class.forName("com.fufu.Student");
+        Class c2 = Class.forName("com.fufu.demo1.Student");
         System.out.println(c1==c2);
 
         Student s = new Student();
