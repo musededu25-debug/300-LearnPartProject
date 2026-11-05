@@ -14,8 +14,8 @@ USE exercise;
 
 -- 创建表 stu_course
 CREATE TABLE IF NOT EXISTS stu_course (
-                                          `number` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '课程编号',
-                                          `name` VARCHAR(20) NOT NULL COMMENT '课程名字',
+    `number` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '课程编号',
+    `name` VARCHAR(20) NOT NULL COMMENT '课程名字',
     `score` DECIMAL(5,2) NOT NULL COMMENT '学分'
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程表';
 

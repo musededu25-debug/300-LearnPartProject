@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-<!--    管理目标类-->
+
+    <!--开启包扫描    -->
+    <context:component-scan base-package="com.fufu"></context:component-scan>
+
+    <!--    管理目标类-->
     <bean id="userService" class="com.fufu.service.impl.UserServiceImpl"></bean>
 
 
@@ -20,10 +25,17 @@
         expression:切点表达式
             execution:切点表达式固定写法  切点方法的形参类型 包名+类名+方法名(参数类型)
                 * 切点方法的返回值类型
-                (..)代表的是切点方法的参数类型
+                (..)代表的是切点方法的参数类型任意
     -->
-        <aop:pointcut id="" expression=
+        <aop:pointcut id="p1" expression=
                 "execution(* com.fufu.service.impl.UserServiceImpl.delectUser(..))"/>
+
+        <aop:pointcut id="p2" expression=
+                "execution(* com.fufu.service.UserService.updateUser(..))"/>
+
+
+        <aop:pointcut id="p3" expression=
+                "execution(* com.fufu.service.UserService.findAll(..))"/>
 
         <!--    配置代理对象-->
         <aop:aspect ref="myAspect">
@@ -35,6 +47,9 @@
             -->
             <aop:before method="checkPrivilege" pointcut-ref="p1"/>
 
+            <aop:after method="printLog" pointcut-ref="p2"/>
+
+            <aop:around method="around" pointcut-ref="p3"/>
         </aop:aspect>
 
 

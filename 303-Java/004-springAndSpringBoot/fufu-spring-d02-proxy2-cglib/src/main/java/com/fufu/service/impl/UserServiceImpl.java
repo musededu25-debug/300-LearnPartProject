@@ -1,6 +1,7 @@
 package com.fufu.service.impl;
 
 import com.fufu.service.UserService;
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -12,7 +13,7 @@ import com.fufu.service.UserService;
 /**
  * 目标类
  */
-
+@Service
 public class UserServiceImpl implements UserService {
     @Override
     public void findAll() {
