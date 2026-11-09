@@ -41,10 +41,10 @@ public class Test02 {
             connection.rollback();
             throw new RuntimeException(e);
         }
-
-
         //提交事务
         connection.commit();
+
+        //关闭资源
         statement.close();
         connection.close();
 
