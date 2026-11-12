@@ -20,6 +20,10 @@
 | 编译级别 | Java 17 | 本机 JDK 27 |
 | Tomcat | 11.0.27（本机） | Homebrew：`/opt/homebrew/opt/tomcat/libexec` |
 | 打包 | war | 无 `web.xml`，靠 SCI 初始化 |
+| 数据库 | 远端 MySQL | 经**本机 3307** 端口转发（不是 3306）；本机无 mysql CLI / Docker |
+
+> **阶段状态**：SpringMVC 部分已学完（d01–d05、p01、p02）。用户已开始 MyBatis 阶段，
+> 交接说明在 `303-Java/006-Mybatis/heima/HANDOFF-from-springmvc.md`；本目录保留作复习用。
 
 ## 3. 运行方式（唯一正确的方式）
 
@@ -79,8 +83,20 @@ src/main/webapp/ # 静态资源 / 页面（课程讲到再加）
 | 编号 | 主题 | 对应课程内容 | 状态 |
 |---|---|---|---|
 | p01 | 多 Controller + 路径映射 + 包扫描边界 | 快速入门 | ✅ 已通过 2026-11-11 |
-| p02 | 参数与响应综合：数组/集合、日期（`@DateTimeFormat`）、返回对象与 `@JsonFormat` | 请求与响应 | 待做：用户先在 d03 补完"已学习未实现"的两块 |
-| p03 | REST 风格改造：`@PathVariable` + `@RestController` + GET/POST/PUT/DELETE | REST 风格 | 待解锁：课程学完 REST 后，把 d03 的接口改造成 RESTful |
+| p02 | 图书管理全栈：静态资源 + REST CRUD + 前后端联调（MyBatis 前的综合练习） | REST / 案例 | 已跑通 2026-11-12（后端骨架用户写，CRUD 逻辑由 Claude 补完，用户需自己复写一遍） |
+| p03 | （可选）把 d03 的接口改造成 RESTful | REST 风格 | 已完成内容并入 p02，可跳过 |
+
+### p02 接口约定（前端 `src/main/webapp/static/app.js` 依赖，不要擅自改）
+
+| 方法 | 路径 | 请求体 | 响应 |
+|---|---|---|---|
+| GET | `/books` | — | `List<Book>` JSON 数组 |
+| GET | `/books/{id}` | — | 单个 Book 或 `null` |
+| POST | `/books` | `{name, price}` JSON | 新建的 Book（含 id） |
+| PUT | `/books/{id}` | `{name, price}` JSON | 修改后的 Book |
+| DELETE | `/books/{id}` | — | 字符串即可 |
+
+`Book`：`Integer id`、`String name`、`Integer price`。页面入口 `http://localhost:8080/static/index.html`。
 
 **依赖提醒**：`@RequestBody` / 返回对象为 JSON 需要 Jackson，pom 里必须有
 `com.fasterxml.jackson.core:jackson-databind`（d03 已加 2.22.4）。

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  黑马 MyBatis 课程 · 通用 pom 模板（Java + Maven 普通工程，打包 jar）
+
+  用法：复制到新工程根目录 → 只改三处 → 其余不动
+    1. <artifactId> 和 <finalName> 改成新工程名（如 fufu-mybatis-d01 / fufu-mybatis-p01）
+    2. <name> 跟着改
+    3. 课程若明确要求其他版本，以课程为准，并同步改这里的 version
+
+  两个不能删的配置（删了会踩坑）：
+    - <resources>：把 src/main/java 下的 XML 也复制到 target/classes，
+      Mapper XML 和接口放同一个包时，不加这段会报 Invalid bound statement (not found)
+    - maven-surefire-plugin：JUnit5 测试能跑起来的保证
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fufu</groupId>
+    <artifactId>fufu-mybatis-XX</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>fufu-mybatis-XX</name>
+    <modules>
+        <module>fufu-mybaties-d01</module>
+    </modules>
+
+    <properties>
+        <!-- 与 SpringMVC 阶段保持一致：Java 17 编译（本机 JDK 27） -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- 保留：MyBatis 接口方法的参数名在部分场景会用到 -->
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+
+        <!-- 版本集中在这里，升级只改一处 -->
+        <mybatis.version>3.5.19</mybatis.version>
+        <mysql-connector.version>8.4.0</mysql-connector.version>
+        <logback.version>1.5.38</logback.version>
+        <junit.version>5.14.4</junit.version>
+        <surefire.version>3.6.0</surefire.version>
+    </properties>
+
+    <dependencies>
+        <!-- MyBatis 核心：SqlSessionFactory / SqlSession / Mapper 都来自这里 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+
+        <!-- MySQL 驱动：实现 java.sql.Driver，MyBatis 通过它连数据库 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+
+        <!-- 日志：让 MyBatis 把执行的 SQL、参数、结果打到控制台，排查必备 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- JUnit 5：在 src/test/java 里跑 Mapper / Service 测试 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>fufu-mybatis-XX</finalName>
+
+        <resources>
+            <!-- Mapper XML 常和接口一起放在 src/main/java 下，必须显式复制 -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <!-- 常规资源：mybatis-config.xml、jdbc.properties、logback.xml 等 -->
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- JUnit5 需要 surefire 3.x 才能识别 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

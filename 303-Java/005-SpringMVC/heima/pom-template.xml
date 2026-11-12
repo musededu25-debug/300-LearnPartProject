@@ -12,7 +12,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fufu</groupId>
     <artifactId>fufu-springmvc-XX</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
+    <modules>
+        <module>fufu-springmvc-d05</module>
+        <module>fufu-springmvc-p02</module>
+    </modules>
     <version>1.0-SNAPSHOT</version>
     <name>fufu-springmvc-XX</name>
 

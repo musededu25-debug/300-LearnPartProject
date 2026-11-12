@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>图书管理 · p02</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+    <h1>图书管理</h1>
+    <p class="hint">前端已写好，接口需要你来实现（见 CLAUDE.md / 练习说明）</p>
+
+    <!-- 添加 / 编辑表单：隐藏的 id 用来区分是新增还是修改 -->
+    <form id="book-form">
+        <input type="hidden" id="book-id">
+        <input id="book-name" type="text" placeholder="书名" required autocomplete="off">
+        <input id="book-price" type="number" placeholder="价格" min="1" required autocomplete="off">
+        <button type="submit" id="submit-btn">添加</button>
+        <button type="button" id="cancel-btn" hidden>取消</button>
+    </form>
+
+    <div id="message" class="message" hidden></div>
+
+    <table>
+        <thead>
+        <tr>
+            <th style="width:70px">ID</th>
+            <th>书名</th>
+            <th style="width:100px">价格</th>
+            <th style="width:140px">操作</th>
+        </tr>
+        </thead>
+        <tbody id="book-list"></tbody>
+    </table>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

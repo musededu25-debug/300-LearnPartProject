@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.fufu</groupId>
+        <artifactId>fufu-mybatis-XX</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fufu-mybaties-d01</artifactId>
+    <packaging>jar</packaging>
+
+    <name>fufu-mybaties-d01</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <!-- 与 SpringMVC 阶段保持一致：Java 17 编译（本机 JDK 27） -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- 保留：MyBatis 接口方法的参数名在部分场景会用到 -->
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+
+        <!-- 版本集中在这里，升级只改一处 -->
+        <mybatis.version>3.5.19</mybatis.version>
+        <mysql-connector.version>8.4.0</mysql-connector.version>
+        <logback.version>1.5.38</logback.version>
+        <junit.version>5.14.4</junit.version>
+        <surefire.version>3.6.0</surefire.version>
+    </properties>
+
+
+
+
+        <dependencies>
+            <!-- MyBatis 核心：SqlSessionFactory / SqlSession / Mapper 都来自这里 -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <!-- MySQL 驱动：实现 java.sql.Driver，MyBatis 通过它连数据库 -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+
+            <!-- 日志：让 MyBatis 把执行的 SQL、参数、结果打到控制台，排查必备 -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <!-- JUnit 5：在 src/test/java 里跑 Mapper / Service 测试 -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+
+
+</project>
