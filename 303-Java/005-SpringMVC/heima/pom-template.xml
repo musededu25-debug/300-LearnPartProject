@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  黑马 SpringMVC 课程 · 通用 pom 模板
+  用法：复制到新工程根目录 → 改三处 → 不要删 properties 里的 parameters
+    1. <artifactId> 和 <finalName> 改成新工程名（如 fufu-springmvc-d05 / fufu-springmvc-p02）
+    2. <name> 跟着改
+    3. 其余不动
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.fufu</groupId>
+    <artifactId>fufu-springmvc-XX</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>fufu-springmvc-XX</name>
+
+    <properties>
+        <!-- 必须！否则参数名拿不到：普通参数、@PathVariable 都会 500 -->
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- 容器提供，不能打进 war -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>6.2.19</version>
+        </dependency>
+
+        <!-- @RequestBody / 返回对象转 JSON 需要 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.22.4</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>fufu-springmvc-XX</finalName>
+    </build>
+</project>
