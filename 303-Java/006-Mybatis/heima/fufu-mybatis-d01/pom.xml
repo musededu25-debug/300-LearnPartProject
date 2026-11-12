@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 版本、依赖、编译配置全部继承自父工程 ../pom.xml，这里不重复声明 -->
+    <parent>
+        <groupId>com.fufu</groupId>
+        <artifactId>fufu-mybatis-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fufu-mybatis-d01</artifactId>
+    <packaging>jar</packaging>
+    <name>fufu-mybatis-d01</name>
+
+    <build>
+        <!-- 只影响本模块打出来的 jar 名：fufu-mybatis-d01.jar -->
+        <finalName>fufu-mybatis-d01</finalName>
+    </build>
+
+</project>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  黑马 MyBatis 课程 · 控制台日志配置（logback）
+
+  【作用】
+    把 Mapper 的 logger 级别设为 DEBUG，
+    MyBatis 就会把「执行的 SQL、参数、影响行数」打到控制台。
+    其它日志保持 INFO，避免 org.apache.ibatis 内部的 DEBUG 刷屏。
+
+  【logger 名怎么来的】
+    XML 方式：namespace + "." + statement id，例如 test.selectAll → 配 test
+    接口方式：接口全限定名，例如 com.fufu.mapper.UserMapper → 配 com.fufu.mapper
+
+    当前 d01 的 UserMapper.xml 写的是 namespace="test"，所以下面配 test；
+    课程讲到 Mapper 接口后，namespace 会改成接口全限定名，这里也要跟着改。
+-->
+<configuration>
+
+    <!-- 输出到控制台；pattern 里的字段含义见文件末尾注释 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- %highlight 实测配色（logback 1.5.38）：INFO 蓝、WARN 红、ERROR 加粗红、DEBUG 无色；
+                 DEBUG 行（也就是 MyBatis 的 SQL 行）靠 %magenta 线程名和 %cyan logger 名体现颜色 -->
+            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) %magenta([%thread]) %cyan(%logger{36}) - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 当前 UserMapper.xml 的 namespace 是 test，所以 SQL 的 logger 是 test.selectAll -->
+    <logger name="test" level="DEBUG"/>
+
+    <!-- 以后改用 Mapper 接口时，把上面一行换成这行（namespace 同步改成接口全限定名）：
+    <logger name="com.fufu.mapper" level="DEBUG"/>
+    -->
+
+    <!-- 如果想让整个项目都输出 DEBUG，换成这行：
+    <logger name="com.fufu" level="DEBUG"/>
+    -->
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
+
+        <!--
+          pattern 字段速查：
+            %d{HH:mm:ss.SSS}  时间
+            %highlight(...)   按日志级别自动上色（logback 1.5.38 实测：INFO 蓝 / WARN 红 / ERROR 加粗红 / DEBUG 无色）
+            %magenta(...)     括号内的内容显示为洋红色
+            %cyan(...)        括号内的内容显示为青色
+            %-5level          日志级别（左对齐，占 5 位）
+            %logger{36}       logger 名，最长 36 字符
+            %msg              日志内容
+            %n                换行
+          时间格式里 mm 是「分钟」，MM 才是「月」，别写反。
+
+          颜色说明：
+            颜色是通过 ANSI 转义码实现的。IDEA 的 Run 控制台、Windows Terminal 都支持；
+            如果颜色没生效、反而看到类似 [32m 的字符，说明当前终端不解析 ANSI，
+            换用 IDEA 的 Run 窗口或 Windows Terminal 运行即可。
+        -->

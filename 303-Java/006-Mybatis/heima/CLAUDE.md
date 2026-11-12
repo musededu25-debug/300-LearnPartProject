@@ -81,7 +81,13 @@ Spring 5 概念 → SpringMVC（已学完，005 目录保留复习）
 
 - **一个知识点 = 一个独立工程**，互不干扰。
 - 本阶段是 **Maven jar 工程**，不启动 Tomcat；验证靠 JUnit5 测试（或课程要求的 `main` 方法）。
-- 新工程直接复制 `heima/pom.xml`，只改 `artifactId` / `name` / `finalName`，依赖不要删。
+- 新增知识点：在 `heima/pom.xml` 的 `<modules>` 里加一行，再新建 `fufu-mybatis-dNN` 子模块；
+  子模块 pom 只写 `parent` / `artifactId` / `packaging` / `name`（需要干净 jar 名再加 `finalName`），
+  依赖和版本全部由父工程提供，不要重复声明。
+- 通用文件放 `heima/` 根目录，不放进子模块：
+  - `pom.xml`：聚合父工程 `fufu-mybatis-parent`；
+  - `logback-template.xml`：日志模板，复制到具体工程的 `src/main/resources/logback.xml` 后才生效
+    （Logback 只自动加载 `logback.xml` / `logback-test.xml`，文件名不对等于没配）。
 
 标准结构（课程讲到哪层就建到哪层，不提前建）：
 
@@ -94,7 +100,7 @@ src/main/java/com/fufu/
 src/main/resources/
 ├── mybatis-config.xml
 ├── jdbc.properties     # 连接信息，账号密码只放这里
-├── logback.xml         # 控制台 SQL 日志
+├── logback.xml         # 控制台 SQL 日志（模板见 heima/logback-template.xml）
 └── com/fufu/mapper/    # Mapper XML（也可与接口同包，二选一，全工程统一）
 src/test/java/com/fufu/
 └── ...MapperTest.java  # JUnit5 测试
@@ -124,6 +130,10 @@ src/test/java/com/fufu/
 - 类顶部用中文注释标出“第几步 / 这个类解决什么问题”。
 - 实体类**手写** getter / setter / 无参构造；**暂不用 Lombok**（课程讲到再单独加，加之前先问用户）。
 - Mapper 接口与 XML：`namespace` = 接口全限定名，XML 的 `id` = 方法名；同包或按 `mapper-locations` 放置，全工程统一一种方式。
+- SQL 日志的 logger 名：XML 方式 = `namespace`（`namespace.id` 是它的子 logger），接口方式 = 接口全限定名。
+  改 `namespace` 时必须同步改 `logback.xml` 的 `<logger name>`，否则 SQL 日志不打印。
+- 入门 demo 阶段（d01）暂时是 `namespace="test"` + `selectList("test.selectAll")`；
+  课程引入 Mapper 接口后，`namespace` 必须改成接口全限定名，logger 配置同步切到 `com.fufu.mapper`。
 - SQL 关键字大写，参数用 `#{}`；`${}` 只在课程明确讲的场景（如动态表名/排序）使用，并说明风险。
 - 测试类放 `src/test/java`，用 JUnit5；测试要可重复执行（自己准备/清理数据），不要依赖执行顺序。
 - 数据库密码不写进代码、不写进本文件；放 `jdbc.properties`。
@@ -141,6 +151,7 @@ jdbc:mysql://127.0.0.1:3307/你的库名?serverTimezone=Asia/Shanghai&useSSL=fal
 - 账号 / 密码只放本地 `jdbc.properties`，**本文件不记录**。
 - 本机没有 `mysql` 命令行，也没有 Docker；用 IDEA 的 Database 工具或图形客户端建库、建表、看数据。
 - **动手写代码前先确认**：3307 能连上、目标库和表已经建好。连不上先解决环境，不要先怀疑 MyBatis。
+- 2026-11-12 已确认：本机 3307 可连接，库 `mybatis` / 表 `tb_user` 可查询。
 
 ## 9. 常见坑（MyBatis 专属）
 
@@ -160,7 +171,8 @@ jdbc:mysql://127.0.0.1:3307/你的库名?serverTimezone=Asia/Shanghai&useSSL=fal
 | `There is no getter for property named 'xxx'` | `#{xxx}` 与参数对象的属性名不一致 | 对齐属性名，或改用 `@Param` |
 | `Result Maps collection already contains value for ...` | `resultMap` 的 id 重复 | 全工程唯一，或按 namespace 隔离 |
 | 测试一个都没跑 / 不被识别 | 测试类不在 `src/test/java`、没加 `@Test`、JUnit 依赖 scope 错、surefire 未生效 | 检查目录、注解、依赖；保留模板 surefire 配置 |
-| 控制台看不到 SQL | logback 没配置或级别过高 | 放 `logback.xml`，把 `com.fufu.mapper` 设为 DEBUG |
+| 控制台看不到 SQL | ① 文件没放 `src/main/resources` 或没改名为 `logback.xml`；② logger 名与 `namespace` 不一致；③ 没 rebuild，`target/classes` 里还是旧的 | 放对位置并改名；logger 名对齐 namespace；`mvn clean package` 或 Rebuild Project |
+| 日志没有颜色 | 用的还是 Logback 默认配置（没有 `%highlight`），说明 `logback.xml` 没生效 | 确认 `src/main/resources/logback.xml` 存在，并已复制进 `target/classes` |
 | 中文乱码 | URL 没带字符集 / 库表字符集不对 | URL 加 `characterEncoding=utf8`，库表用 utf8mb4 |
 | 改了 pom 依赖不生效 | IDEA 没重新导入 Maven | 刷新 Maven 项目（Reload All Maven Projects） |
 
@@ -195,4 +207,4 @@ jdbc:mysql://127.0.0.1:3307/你的库名?serverTimezone=Asia/Shanghai&useSSL=fal
 
 | 日期 | 工程 | 主题 | 结果 / 备注 |
 |---|---|---|---|
-| | | | |
+| 2026-11-12 | fufu-mybatis-d01 | MyBatis 入门：核心配置 + SqlSession + XML Mapper 查询 | 跑通 `selectList("test.selectAll")`，查出 `tb_user` 3 条；彩色日志配置生效 |

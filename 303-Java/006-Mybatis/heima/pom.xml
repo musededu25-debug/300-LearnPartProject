@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  黑马 MyBatis 课程 · 通用 pom 模板（Java + Maven 普通工程，打包 jar）
+  黑马 MyBatis 课程 · 聚合父工程（packaging=pom）
 
-  用法：复制到新工程根目录 → 只改三处 → 其余不动
-    1. <artifactId> 和 <finalName> 改成新工程名（如 fufu-mybatis-d01 / fufu-mybatis-p01）
-    2. <name> 跟着改
-    3. 课程若明确要求其他版本，以课程为准，并同步改这里的 version
+  用法：
+    - 公共依赖、版本、编译配置只写在这里，子模块继承，不要在子模块里重复声明
+    - 新增一个知识点：在 <modules> 里加一行，再新建 fufu-mybatis-dNN 子模块；
+      子模块 pom 只写 parent / artifactId / packaging / name（需要干净 jar 名再加 finalName）
+    - 课程若明确要求其他版本，以课程为准，并同步改这里的 version
 
   两个不能删的配置（删了会踩坑）：
     - <resources>：把 src/main/java 下的 XML 也复制到 target/classes，
@@ -18,12 +19,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fufu</groupId>
-    <artifactId>fufu-mybatis-XX</artifactId>
+    <artifactId>fufu-mybatis-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>fufu-mybatis-XX</name>
+    <name>fufu-mybatis-parent</name>
     <modules>
-        <module>fufu-mybaties-d01</module>
+        <module>fufu-mybatis-d01</module>
     </modules>
 
     <properties>
@@ -74,8 +75,8 @@
     </dependencies>
 
     <build>
-        <finalName>fufu-mybatis-XX</finalName>
-
+        <!-- finalName 不在这里写：子模块会继承，导致所有 jar 同名。
+             需要干净 jar 名时，在各自子模块的 <build> 里单独声明。 -->
         <resources>
             <!-- Mapper XML 常和接口一起放在 src/main/java 下，必须显式复制 -->
             <resource>
