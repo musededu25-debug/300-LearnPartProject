@@ -25,6 +25,9 @@
     <name>fufu-mybatis-parent</name>
     <modules>
         <module>fufu-mybatis-d01</module>
+        <module>fufu-mybatis-d02</module>
+        <module>fufu-mybatis-p01</module>
+        <module>fufu-mybatis-d03</module>
     </modules>
 
     <properties>
