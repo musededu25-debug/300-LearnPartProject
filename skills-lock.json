@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "skills": {
+    "defuddle": {
+      "source": "obsidianmd/obsidian-skills",
+      "commit": "1c3f6df5683588e39b12462a75d1d0fcf550f955",
+      "sourceType": "github",
+      "skillPath": "plugins/obsidian/skills/defuddle/SKILL.md",
+      "computedHash": "82614e1fedcb107d4e4d239900d71d3a94a9ac721e16fa5d98d9dfc7d113e774"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "commit": "57217cf86ba38148a57af9e90d14a4c049558330",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "7bc223e2aafbdbf6e50ea243ba6ef67fe432bb069ab439fea0390795dac0bf7f"
+    },
+    "json-canvas": {
+      "source": "obsidianmd/obsidian-skills",
+      "commit": "1c3f6df5683588e39b12462a75d1d0fcf550f955",
+      "sourceType": "github",
+      "skillPath": "plugins/obsidian/skills/json-canvas/SKILL.md",
+      "computedHash": "5d0499ad8ce7f68bcd501bea93a80c3a0406722f182a5b50cd9d1ec3c34c4ea5"
+    }
+  }
+}

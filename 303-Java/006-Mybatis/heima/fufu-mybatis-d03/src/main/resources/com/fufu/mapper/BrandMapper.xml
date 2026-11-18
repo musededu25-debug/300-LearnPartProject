@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace:名称空间
+-->
+<mapper namespace="com.fufu.mapper.BrandMapper">
+
+<!--    <sql id="brand_column" >-->
+<!--        id, brand_name as brandName, company_name as companyName, ordered, description, status-->
+<!--    </sql>-->
+    
+    
+    <resultMap id="brandResultMap" type="com.fufu.pojo.Brand">
+        <result column="brand_name" property="brandName"></result>
+        <result column="company_name" property="companyName"></result>
+    </resultMap>
+
+    <select id="selectAllBrand" resultMap="brandResultMap">
+        select
+          *
+        from tb_brand;
+    </select>
+
+
+
+    <select id="selectBrandById" resultMap="brandResultMap">
+
+        select * from tb_brand where id = #{id};
+    </select>
+
+</mapper>
