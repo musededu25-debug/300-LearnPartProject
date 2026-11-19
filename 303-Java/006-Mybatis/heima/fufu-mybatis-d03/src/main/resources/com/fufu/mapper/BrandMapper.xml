@@ -29,5 +29,69 @@
 
         select * from tb_brand where id = #{id};
     </select>
+    
 
+<!--    <select id="selectByCondition" resultMap="brandResultMap">-->
+<!--        select * from tb_brand-->
+<!--        where status = #{status}-->
+<!--        and company_name like #{companyName}-->
+<!--        and brand_name like #{brandName};-->
+<!--    </select>-->
+
+<!--
+动态sql查询
+-->
+    <select id="selectByCondition" resultMap="brandResultMap">
+        select * from tb_brand
+        <where>
+            <if test="status != null">
+                status = #{status}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name like #{companyName}
+            </if>
+            <if test="brandName != null and brandName != ''">
+                and brand_name like #{brandName}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByConditionSingle" resultType="com.fufu.pojo.Brand">
+        select * from tb_brand
+        <where>
+            <choose>
+                <when test="status != null">
+                    status = #{status}
+                </when>
+                <when test="companyName != null and companyName != ''">
+                    and company_name like #{companyName}
+                </when>
+                <when test="brandName != null and brandName != ''">
+                    and brand_name like #{brandName}
+                </when>
+            </choose>
+        </where>
+
+
+    </select>
+
+
+    <insert id="insertBrand">
+
+        insert into tb_brand (brand_name, company_name, ordered, description, status)
+        values (#{brandName},#{companyName},#{ordered},#{description},#{status});
+    </insert>
+
+<!--    <insert id="?" useGeneratedKeys="true" keyProperty="id"></insert>-->
+
+<!--
+修改功能
+-->
+    <update id="?" ></update>
+<!--
+动态修改同理加if 同时还有新标签<set>
+-->
+
+<!--    删除delete-->
+<!--    批量删除foreach-->
 </mapper>
