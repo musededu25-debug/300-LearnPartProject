@@ -84,5 +84,55 @@ public class BinarySearchDemoTest {
         return i;
     }
 
+    @Test
+    @DisplayName("LeetCode34")
+    public void leetCode34() {
+
+    }
+
+    public int[] searchRange(int[] nums, int target) {
+
+        int x =leftmost(nums, target);
+        if(x == -1){
+            return new int[]{-1,-1};
+        }else {
+            return new int[]{x,rightmost(nums, target)};
+        }
+    }
+
+    public  int leftmost(int[] nums, int target) {
+        int i =0, j = nums.length-1;
+        int candidate = -1;
+        while( i <= j){
+            int mid = (i + j) >>>1;
+            if(target < nums[mid]){
+                j = mid - 1;
+            }else if (nums[mid] < target){
+                i = mid + 1;
+            }
+            else{
+                candidate = mid;
+                j = mid - 1;
+            }
+        }
+        return  candidate;
+    }
+
+    public  int rightmost(int[] nums, int target) {
+        int i =0, j = nums.length-1;
+        int candidate = -1;
+        while( i <= j){
+            int mid = (i + j) >>>1;
+            if(target < nums[mid]){
+                j = mid - 1;
+            }else if (nums[mid] < target){i = mid + 1;
+            }
+            else{
+                candidate = mid;
+                i = mid +1;
+            }
+        }
+        return  candidate;
+    }
 
 }
