@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fufu</groupId>
+    <artifactId>001-dataStructure</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>001-dataStructure</name>
+    <description>数据结构与算法：手写实现 + 刷题题解 + JUnit 5 单元测试</description>
+
+    <properties>
+        <!--
+            编译目标用 LTS 21：
+            - 本机 JDK 27 可以正常编译运行
+            - 代码粘到 LeetCode / 面试环境（一般是 JDK 17 或 21）不会因为用了新语法而报错
+            如果想用 JDK 27 的新特性，把 21 改成 27 即可。
+        -->
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <junit.version>5.14.4</junit.version>
+        <assertj.version>3.27.7</assertj.version>
+    </properties>
+
+    <!-- 用 BOM 统一 JUnit 各子模块的版本，后面加 junit-jupiter-params 等不用再写版本号 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- JUnit 5：包含 api + params + engine，@Test / @ParameterizedTest / @Nested 都能直接用 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- AssertJ：链式断言，写算法测试比 assertEquals 更直观，例如
+             assertThat(result).containsExactly(0, 1) -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.16.0</version>
+            </plugin>
+
+            <!-- Surefire 负责执行 JUnit 5 测试；mvn test 就是靠它 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.6.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
