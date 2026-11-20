@@ -14,8 +14,18 @@
   - 用命令行批量操作库 → 先调用 `obsidian-cli` skill
   - 从网页摘取内容进笔记 → 先调用 `defuddle` skill（不要手抄网页）
   - 建/改 `.canvas` 白板、思维导图、流程图 → 先调用 `json-canvas` skill
-- **速查表**：写完工具类主题（Git、JUnit、Logback、Maven 这类命令/API/配置项多的），若内容里出现大量可查询项，同步产出 `99-速查表-<主题>.md` 放进该主题目录。速查表只做「查」不做「教」：命令表、注解表、模板、`我想…→ 用什么` 索引。已配：团队开发、JUnit、Logback、Maven
+- **速查表**：写完工具类主题（Git、JUnit、Logback、Maven 这类命令/API/配置项多的），若内容里出现大量可查询项，同步产出 `99-速查表-<主题>.md` 放进该主题目录。速查表只做「查」不做「教」：命令表、注解表、模板、`我想…→ 用什么` 索引。已配：团队开发、JUnit、Logback、Maven、IDEA、HTTP
 - 旧库 `/Users/m/Home/200-MarkdownHome/通用/100-编程相关/102-学习笔记/` 只读，按需迁移，不批量重写
+
+## 笔记中仍需实机确认的点
+
+下面几条已按官方文档、随包 Keymap 或源码字节码核对过，但受本机环境限制没做真机验证。改到相关章节时先实测，确认后删掉对应条目：
+
+- IDEA macOS 快捷键（`⌘⌥⇧F8`、`⌥⇧F5`、`⌥⌘R`）来自 JetBrains 默认 Keymap 与随包 `Mac OS X 10.5+.xml`，未在 macOS 上实按。
+- 「Pause 是会话级暂停」按 JDI `VirtualMachine.suspend()` 语义与官方文档推导，未在 Tomcat 多线程场景下逐线程验证。
+- IDEA 2026.3 Breakpoints 对话框里异常断点分类写作 `Java Exception Breakpoints`，未在 GUI 中截图核对。
+- Tomcat Local 调试端口 `54987` 取自本机 `.idea/workspace.xml`，属于配置项；重建 Run Configuration 后会变。
+- IDEA HTTP Client 环境变量优先级「私有环境覆盖公共环境」来自 `HttpCompositeEnvironment#getVariableValue` 字节码；官方文档「变量类型」一节仍写着相反结论，属文档滞后。
 
 ## 技能加载（每台新机器做一次）
 
