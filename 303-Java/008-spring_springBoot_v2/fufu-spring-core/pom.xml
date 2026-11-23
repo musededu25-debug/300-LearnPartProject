@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  纯 Spring 7 核心学习模块：
+    - 第 1–3 章：IoC 容器、Bean 生命周期与作用域、DI、全注解与 Java 配置类
+    - 第 4 章：动态代理与 AOP（@Aspect + 五种通知；Spring 内置 CGLIB，无需单独引 cglib）
+    - 第 5 章：JdbcTemplate 与声明式事务（@Transactional、传播行为、失效场景）
+    - 测试方式：JUnit 6 + SpringExtension（@SpringJUnitConfig）
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.fufu</groupId>
+        <artifactId>fufu-spring-springboot-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fufu-spring-core</artifactId>
+    <packaging>jar</packaging>
+    <name>fufu-spring-core</name>
+    <description>Spring 7 核心机制重塑：IoC / DI / AOP / JdbcTemplate / 声明式事务</description>
+
+    <dependencies>
+        <!-- 1. Spring 核心容器：包含 IoC / DI / 注解配置，并传递引入 spring-core / spring-beans / spring-aop / spring-expression -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- 2. Jakarta 通用注解：@Resource / @PostConstruct / @PreDestroy（替代旧版 javax.annotation） -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+
+        <!-- 3. AspectJ 织入器：支持 @Aspect / @Pointcut / @Around 等注解式 AOP（CGLIB 由 spring-core 内置，勿再引老 cglib） -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+        <!-- 4. Spring JDBC 与事务：包含 JdbcTemplate，并传递引入 spring-tx（@Transactional / @EnableTransactionManagement） -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <!-- 4.1 MyBatis 核心与 Spring 整合：SqlSessionFactoryBean / @MapperScan -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+
+        <!-- 5. 数据库连接池：HikariCP（现代标配，Spring Boot 默认连接池） -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+
+        <!-- 6. MySQL 驱动：连接本机 127.0.0.1:3307 转发的远端 MySQL -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+
+        <!-- 7. 日志：SLF4J + Logback，方便观察 Spring 容器初始化、AOP 与事务回滚日志 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <!-- 8. 测试：Spring 整合 JUnit 6（使用 @ExtendWith(SpringExtension.class) 或 @SpringJUnitConfig） -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

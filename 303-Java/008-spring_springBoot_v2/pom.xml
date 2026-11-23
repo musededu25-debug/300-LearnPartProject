@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Spring 重塑 → Spring Boot 学习 · 多模块聚合父工程（packaging=pom）
+
+  设计约定：
+    - 根 POM 只通过 <dependencyManagement> 统一管理版本与编译插件，不直接声明 <dependencies>；
+      这样纯 Spring 子模块与后续的 Spring Boot 子模块互不污染，按需在各自子模块中引入依赖。
+    - 新增子模块：在 <modules> 中登记目录名，并在子模块 pom.xml 中声明 <parent> 指向本工程。
+    - 后续进军 Spring Boot：新增 fufu-springboot-* 子模块，独立引入 spring-boot-starter-parent 或
+      spring-boot-dependencies BOM 即可。
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fufu</groupId>
+    <artifactId>fufu-spring-springboot-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>fufu-spring-springboot-parent</name>
+    <description>Spring 7 核心重塑与 Spring Boot 4 进阶学习父工程（JDK 21）</description>
+
+    <modules>
+        <module>fufu-spring-core</module>
+    </modules>
+
+    <properties>
+        <!-- 编译级别统一为 JDK 21 LTS -->
+        <maven.compiler.release>21</maven.compiler.release>
+        <!-- Spring 6.1+ / 7 必须保留：保留字节码方法参数名，避免注入/绑定时报参数名缺失 -->
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- 核查日期：2026-11（均采用当前最新稳定版本） -->
+        <spring.version>7.0.11</spring.version>
+        <mybatis.version>3.6.0</mybatis.version>
+        <mybatis-spring.version>4.1.0</mybatis-spring.version>
+        <junit.version>6.1.3</junit.version>
+        <jakarta.annotation.version>3.0.0</jakarta.annotation.version>
+        <aspectj.version>1.9.27</aspectj.version>
+        <hikaricp.version>7.1.0</hikaricp.version>
+        <mysql-connector.version>8.4.0</mysql-connector.version>
+        <logback.version>1.5.38</logback.version>
+
+        <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.6.0</maven-surefire-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Framework 7 BOM：统一管理 spring-context / spring-jdbc / spring-tx / spring-test 等版本 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- JUnit 6 BOM：Spring 7 原生测试基线，完全兼容 JUnit 5 Jupiter 注解写法 -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Jakarta Annotations：JDK 11+ 已移出标准库，使用 @Resource / @PostConstruct / @PreDestroy 必备 -->
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta.annotation.version}</version>
+            </dependency>
+
+            <!-- AspectJ：AOP 切点表达式与 @Aspect 注解支持 -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <!-- HikariCP：现代主流连接池（替代课件中的 c3p0） -->
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${hikaricp.version}</version>
+            </dependency>
+
+            <!-- MyBatis 核心与 Spring 7 整合包（4.x 对应 Spring Framework 7.0+） -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+
+            <!-- MySQL 8 LTS 驱动（对应本机 127.0.0.1:3307 转发的远端 MySQL） -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+
+            <!-- Logback：SLF4J 日志实现，Spring 7 通过 spring-jcl 自动桥接 -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+
+                <!-- Surefire 3.x：保障 JUnit 6 / Jupiter 测试正常发现与执行 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

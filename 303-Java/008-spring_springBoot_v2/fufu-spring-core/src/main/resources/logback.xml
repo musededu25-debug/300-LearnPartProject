@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  fufu-spring-core · Logback 控制台彩色日志配置
+
+  【说明】
+    - 放在 src/main/resources/logback.xml 下，Logback 启动时自动加载。
+    - Spring 7 内置 spring-jcl 会自动桥接到 SLF4J + Logback，无需额外桥接包。
+    - 学到 JdbcTemplate 或 @Transactional 时，按需取消下方对应 <logger> 的注释，
+      即可在控制台直接观察 SQL 执行与事务的开启 / 提交 / 回滚。
+-->
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- %highlight 实测配色（logback 1.5.38）：INFO 蓝、WARN 红、ERROR 加粗红、DEBUG 无色 -->
+            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) %magenta([%thread]) %cyan(%logger{36}) - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 自己的学习代码开启 DEBUG -->
+    <logger name="com.fufu.spring" level="DEBUG"/>
+
+    <!-- 按需开启：观察 @Transactional 事务开启、传播行为与回滚（学第 5 章时推荐打开） -->
+    <!-- <logger name="org.springframework.transaction" level="TRACE"/> -->
+    <!-- <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG"/> -->
+
+    <!-- 按需开启：观察 JdbcTemplate 执行的 SQL 与绑定参数 -->
+    <!-- <logger name="org.springframework.jdbc.core" level="DEBUG"/> -->
+
+    <!-- 按需开启：观察 Bean 注册与生命周期（日志较多，排查时再开） -->
+    <!-- <logger name="org.springframework.beans.factory" level="DEBUG"/> -->
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
