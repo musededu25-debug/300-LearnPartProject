@@ -14,10 +14,9 @@
   - 用命令行批量操作库 → 先调用 `obsidian-cli` skill
   - 从网页摘取内容进笔记 → 先调用 `defuddle` skill（不要手抄网页）
   - 建/改 `.canvas` 白板、思维导图、流程图 → 先调用 `json-canvas` skill
-- **速查表**：写完工具类主题（Git、JUnit、Logback、Maven 这类命令/API/配置项多的），若内容里出现大量可查询项，同步产出 `99-速查表-<主题>.md` 放进该主题目录。速查表只做「查」不做「教」：命令表、注解表、模板、`我想…→ 用什么` 索引。已配：团队开发、JUnit、Logback、Maven、IDEA、HTTP
+- **速查表**：写完工具类主题（Git、JUnit、Logback、Maven 这类命令/API/配置项多的），若内容里出现大量可查询项，同步产出 `99-速查表-<主题>.md` 放进该主题目录。速查表只做「查」不做「教」：命令表、注解表、模板、`我想…→ 用什么` 索引。已配：团队开发、JUnit、Logback、Maven、IDEA、HTTP、MissingSemester、Vim
 - 旧库 `/Users/m/Home/200-MarkdownHome/通用/100-编程相关/102-学习笔记/` 只读，按需迁移，不批量重写
 
-<<<<<<< HEAD
 ## 项目结构与子模块导航
 
 按当前任务直接读取对应目录的 `CLAUDE.md`，不要跨目录扫描无关工程或 `target/`：
@@ -31,7 +30,7 @@
 | `303-Java/001`–`004`、`009-tools` | 📦 历史归档 | 早期 JavaSE / JavaWeb / Maven / 旧 Spring 练习，非必要不翻阅 |
 
 > 通用环境提醒：本机 JDK 21 + Maven 3.10；远端 MySQL 经本机 **`127.0.0.1:3307`** 端口转发（不是 3306），账号密码只放本地配置文件，不写进文档。
-=======
+
 ## 笔记中仍需实机确认的点
 
 下面几条已按官方文档、随包 Keymap 或源码字节码核对过，但受本机环境限制没做真机验证。改到相关章节时先实测，确认后删掉对应条目：
@@ -59,8 +58,7 @@
 
 ## Obsidian CLI
 
-- Windows 可执行文件：`A:\01-home\2000-AppHome\Markdown\01-obsidian\home\Obsidian.com`（同目录有 `Obsidian.exe`），该目录默认不在 PATH。
+- Windows 可执行文件：`A:\01-home\200-AppHome\Markdown\01-obsidian\home\Obsidian.com`（同目录有 `Obsidian.exe`），该目录默认不在 PATH。
 - 首次使用需在 Obsidian「设置 → 通用 → 高级」里启用命令行接口；未启用时 `Obsidian.com help` 会返回 `Command line interface is not enabled.`。
 - 未启用不阻塞工作：直接按文件系统路径读写知识库即可。
 - `defuddle` 未全局安装，需要摘网页时用 `npx -y defuddle parse <url> --md`。
->>>>>>> origin/main
