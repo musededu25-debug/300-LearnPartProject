@@ -6,7 +6,9 @@
 <!--
     别名typeAliases
 -->
-    <typeAliases></typeAliases>
+    <typeAliases>
+        <package name="com.fufu.pojo"/>
+    </typeAliases>
 
     <environments default="development">
         <environment id="development">

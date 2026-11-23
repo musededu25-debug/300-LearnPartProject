@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  黑马 MyBatis 课程 · logback 控制台日志模板
+
+  【用法】
+    复制本文件到具体工程的 src/main/resources/ 下，并改名为 logback.xml
+
+  【作用】
+    把 com.fufu.mapper 包（Mapper 接口所在包）的日志级别设为 DEBUG，
+    MyBatis 就会把「执行的 SQL、参数、影响行数」打到控制台。
+    注意：logger 名是 Mapper 接口的全限定名，所以包名必须和你的接口包一致。
+
+  【以后包名变了】
+    改下面 <logger name="com.fufu.mapper" .../> 的 name。
+
+  【说明】
+    文件名故意叫 logback-template.xml，不会被 Logback 自动加载；
+    只有复制并改名为 logback.xml 后才生效。
+-->
+<configuration>
+
+    <!-- 输出到控制台；pattern 里的字段含义见文件末尾注释 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- %highlight 实测配色（logback 1.5.38）：INFO 蓝、WARN 红、ERROR 加粗红、DEBUG 无色；
+                 DEBUG 行（也就是 MyBatis 的 SQL 行）靠 %magenta 线程名和 %cyan logger 名体现颜色 -->
+            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) %magenta([%thread]) %cyan(%logger{36}) - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 只让自己的 Mapper 输出 DEBUG；其它保持 INFO，避免满屏噪音 -->
+    <logger name="com.fufu.mapper" level="DEBUG"/>
+
+    <!-- 如果以后想让整个项目都输出 DEBUG，把上面一行换成下面这行：
+    <logger name="com.fufu" level="DEBUG"/>
+    -->
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
+
+<!--
+  pattern 字段速查：
+    %d{HH:mm:ss.SSS}  时间
+    %highlight(...)   按日志级别自动上色（logback 1.5.38 实测：INFO 蓝 / WARN 红 / ERROR 加粗红 / DEBUG 无色）
+    %magenta(...)     括号内的内容显示为洋红色
+    %cyan(...)        括号内的内容显示为青色
+    %-5level          日志级别（左对齐，占 5 位）
+    %logger{36}       logger 名，最长 36 字符
+    %msg              日志内容
+    %n                换行
+  时间格式里 mm 是「分钟」，MM 才是「月」，别写反。
+
+  颜色说明：
+    颜色是通过 ANSI 转义码实现的。IDEA 的 Run 控制台、Windows Terminal 都支持；
+    如果颜色没生效、反而看到类似 [32m 的字符，说明当前终端不解析 ANSI，
+    换用 IDEA 的 Run 窗口或 Windows Terminal 运行即可。
+-->

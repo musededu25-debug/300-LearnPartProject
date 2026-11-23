@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fufu.mapper.BrandMapper">
+
+
+    <select id="selectAll" resultType="com.fufu.pojo.Brand">
+        select * from tb_brand
+    </select>
+
+
+    <select id="selectById" resultType="com.fufu.pojo.Brand">
+        select * from tb_brand
+            <where>
+                id = #{id}
+            </where>
+
+    </select>
+
+
+    <insert id="insertBrand" useGeneratedKeys="true" keyProperty="id">
+        insert into
+    </insert>
+
+    <update id="updateBrand" ></update>
+
+
+
+    <delete id="deleteById"></delete>
+
+</mapper>

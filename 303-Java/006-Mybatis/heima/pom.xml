@@ -28,6 +28,7 @@
         <module>fufu-mybatis-d02</module>
         <module>fufu-mybatis-p01</module>
         <module>fufu-mybatis-d03</module>
+        <module>fufu-mybatis-p02</module>
     </modules>
 
     <properties>
