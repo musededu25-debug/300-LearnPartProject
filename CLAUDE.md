@@ -7,14 +7,14 @@
   - Windows：`A:\01-home\200-MarkdownHome\01-\obsidian_version2`
 - **查笔记先走路由，不要扫库**：读库内 `00-Meta/00-README.md` 的「AI 读取协议」，再到 `00-Meta/01-INDEX.md` 的「主题直达」定位主题索引；只读命中的 `00-INDEX-*`，需要细节或修改时才读章节正文
 - **搜索先收窄**：先用 `grep -l` 或文件名找候选，再读候选；不要 `cat` 整个目录、不要批量读章节
-- 写笔记前先读库内 `00-Meta/02-SPEC.md`：命名、frontmatter、目录归属都按它来；只改目标文件
+- 写笔记前先读库内 `00-Meta/02-SPEC.md`：命名、frontmatter、目录归属都按它来；只改目标文件；写章节笔记必须遵守 `chapter.md` 的「**新手友好 4 条铁律**」（前置依赖必写、陌生注解/语法配大白话定位、保留易错 `import`/`import static`、跨主题概念首次出现挂定向 `[[wikilink]]`）
 - 触发规则（不要把 Obsidian 语法凭记忆写）：
   - 写/改 Markdown 笔记 → 先调用 `obsidian-markdown` skill
   - 改 `.base` 文件 → 先调用 `obsidian-bases` skill
   - 用命令行批量操作库 → 先调用 `obsidian-cli` skill
   - 从网页摘取内容进笔记 → 先调用 `defuddle` skill（不要手抄网页）
   - 建/改 `.canvas` 白板、思维导图、流程图 → 先调用 `json-canvas` skill
-- **速查表**：写完工具类主题（Git、JUnit、Logback、Maven 这类命令/API/配置项多的），若内容里出现大量可查询项，同步产出 `99-速查表-<主题>.md` 放进该主题目录。速查表只做「查」不做「教」：命令表、注解表、模板、`我想…→ 用什么` 索引。已配：团队开发、JUnit、Logback、Maven、IDEA、HTTP、MissingSemester、Vim
+- **速查表**：写完工具类或高频框架主题（Git、JUnit、Logback、Maven、Spring、SpringBoot 这类命令/API/配置项多的），若内容里出现大量可查询项，同步产出 `99-速查表-<主题>.md` 放进该主题目录。速查表只做「查」不做「教」：命令表、注解表、模板、`我想…→ 用什么` 索引。已配：团队开发、JUnit、Logback、Maven、IDEA、HTTP、MissingSemester、Vim、Spring、SpringBoot
 - 旧库 `/Users/m/Home/200-MarkdownHome/通用/100-编程相关/102-学习笔记/` 只读，按需迁移，不批量重写
 
 ## 项目结构与子模块导航
