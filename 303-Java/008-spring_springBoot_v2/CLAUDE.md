@@ -1,10 +1,11 @@
-# 008-spring_springBoot_v2 · Spring 7 重塑与 Spring Boot 4 进阶
+# 008-spring_springBoot_v2 · Spring 7 核心重塑与 SSM 整合
 
 > **给 AI 的话**：先读本文件建立上下文，再按需打开具体代码文件。不要扫描 `target/`，也不要跨目录翻旧练习（`003-Maven`、`004-springAndSpringBoot` 等）。
+> **Spring Boot 已拆分**：Spring Boot 4 与 MyBatis-Plus 统一放在 `303-Java/010-SpringBoot/`，本目录只做纯 Spring 7 核心与 SSM 整合。
 
 ## 1. 定位与学习路线
 
-本目录用于**系统重塑 Spring 核心机制**，并沿既定路线平滑推进至 Spring Boot 与 MyBatis-Plus。当前阶段以**纯 Spring 7 为主**。
+本目录用于**系统重塑 Spring 核心机制**并完成轻量化 SSM 整合。Spring Boot 4 与 MyBatis-Plus 已拆分到 `303-Java/010-SpringBoot/`，本目录不再推进。
 
 ```text
 Spring 7 核心重塑（当前：fufu-spring-core，短平快 3–5 天）
@@ -13,11 +14,7 @@ Spring 7 核心重塑（当前：fufu-spring-core，短平快 3–5 天）
 SSM 整合（轻量化 1–2 天，纯注解跑通 1 张表即止，不做大项目）
   看清父子容器分工、SqlSessionFactoryBean/@MapperScan、数据源与事务串联
         ↓
-Spring Boot 4（🔥 核心主战场，后续新增 fufu-springboot-* 子模块）
-  自动配置原理 → Starter → application.yml → Web / 整合 MyBatis / 测试打包
-        ↓
-MyBatis-Plus（⚡ 提效阶段）
-  BaseMapper / LambdaQueryWrapper / 分页 / 逻辑删除（复杂联查回退原生 MyBatis XML）
+（Spring Boot 4 + MyBatis-Plus 已拆分到 ../010-SpringBoot，不在此处继续）
 ```
 
 - **学习方式（重要）**：**不跟着老课件一步一步抄大段代码**，也不只看不练；用**极简验证实验（Mini-Lab）+ JUnit 6 测试**把 Spring Boot 底层依然在跑的核心机制吃透：
@@ -34,14 +31,35 @@ MyBatis-Plus（⚡ 提效阶段）
 | Lab 02 | 动态代理 + 注解式 AOP + 自调用失效 | 手写极简 JDK 代理、`@Aspect` + `@Around` 统计耗时、复现并解释 `this.xxx()` 自调用绕过代理 | ⏳ 待开始 |
 | Lab 03 | 声明式事务 `@Transactional` + 传播行为与失效 | 极简转账正常提交与异常回滚、复现自调用/非 public/吞异常失效、对比 `REQUIRED` 与 `REQUIRES_NEW` | ⏳ 待开始 |
 
+### p01 巩固练习（`fufu-spring-p01`，逐步开放）
+
+> 规则：每次只做一小步，用户自己写；AI 出题 + 验收 + 排错，不代写答案。完成后立即更新本表状态。
+> 包根：`com.fufu.spring.p01`；容器入口：`com.fufu.spring.p01.config.P01Config`。
+
+> 练习主线以本地黑马 SSM 课程代码为准（day01 XML → day02 注解/数据源/MyBatis/JUnit → day03 AOP/事务）；
+> 课程未覆盖的 BPP、循环依赖等底层机制标为「暂缓」，等课程主线跑完再按需补。
+
+| 步骤 | 对应课程 | 主题 | 验收点 | 状态 |
+|---|---|---|---|---|
+| Lab 01-1 | day02 11–13 | 注解 Bean + 构造器注入 | 自己写 Dao/Service，由容器注入；单例、按类型取 Bean 正确 | ✅ 完成（`IocStep1Test` 通过；断言留待后续补练） |
+| Lab 01-2 | day01 04 | Bean 生命周期回调 | `@PostConstruct` / `@PreDestroy` 日志顺序正确，容器关闭触发销毁 | ✅ 完成（`LifecycleStep2Test` 实测顺序：构造 → PostConstruct → use → PreDestroy） |
+| Lab 01-3 | 课程外 | BeanPostProcessor | 自定义 BPP 的 before/after 包围初始化方法 | ⏸ 暂缓（课程未覆盖，AOP 后按需补） |
+| Lab 01-4 | 课程外 | 循环依赖与三级缓存 | 字段注入复现；构造器注入复现启动失败 | ⏸ 暂缓（面试复盘时再补） |
+| Lab 02-1 | day02 09/14/16 | 数据源 + Spring 整合 JUnit 6 | `@Bean` 管理 HikariCP、`@PropertySource` 读配置、`@SpringJUnitConfig` 注入并连通数据库 | 🟡 进行中 |
+| Lab 02-2 | day02 15 | Spring 整合 MyBatis | `SqlSessionFactoryBean` + `MapperScannerConfigurer` 查出 `tb_user` | ⏳ 待开始 |
+| Lab 03 | day03 17–22 | AOP | 代理现象 → `@Aspect` 快速入门 → 切点表达式 → 五种通知 → 通知获取参数/返回值 | ⏳ 待开始 |
+| Lab 04 | day03 24–25 | 声明式事务 | 转账正常提交 / 异常回滚；传播行为与常见失效场景 | ⏳ 待开始 |
+
 ---
 
 ## 2. 工程形态（多模块聚合父工程）
 
 - 根目录 `pom.xml` 是聚合父工程（`com.fufu:fufu-spring-springboot-parent`，`packaging=pom`）。
 - **版本隔离原则**：根 `pom.xml` 只在 `<dependencyManagement>` 中统一管理版本与插件，**不直接声明 `<dependencies>`**；这样纯 Spring 子模块与后续 Spring Boot 子模块互不污染。
-- **当前模块**：`fufu-spring-core`（一个模块内按专题分包，避免每个小节建一个 Maven 模块）。
-- **后续进军 Spring Boot**：在根 `pom.xml` 的 `<modules>` 新增 `fufu-springboot-*` 子模块，独立使用 Spring Boot 4 的父工程或 BOM。
+- **当前模块**：
+  - `fufu-spring-core`：主线实验与验证代码（一个模块内按专题分包，避免每个小节建一个 Maven 模块）。
+  - `fufu-spring-p01`：**不参考 core 现成代码的巩固练习模块**，按下方「p01 巩固练习」步骤自己手写；依赖按需追加（当前只引了 IoC/生命周期所需的最小集合）。
+- **Spring Boot 已拆出**：Spring Boot 4 与 MyBatis-Plus 统一放在 `303-Java/010-SpringBoot/`（父工程继承 `spring-boot-starter-parent:4.1.3`）；本工程不再新增 `fufu-springboot-*` 子模块。
 
 推荐包结构（用到再建，不提前建空包）：
 
@@ -95,6 +113,9 @@ MyBatis-Plus（⚡ 提效阶段）
 - 旧库参考（只读，按需迁移）：
   - `通用/100-编程相关/102-学习笔记/011-SSM/02-Spring/00-Spring笔记规范与索引.md`（1–6 章主线与 2020→2026 差异）
   - `通用/100-编程相关/102-学习笔记/011-SSM/02-Spring/课表.md`
+- 本地课程代码（只读，p01 以它为顺序基准）：
+  - `/Users/m/Home/000-WorkHome/000-收集箱/新建文件夹/SSM资料/01-spring/01-spring/day01–03`
+  - 课程是 2020 年前后的黑马 SSM：day01 XML、day02 注解/数据源/MyBatis/JUnit 4、day03 AOP/事务；**课程不含 BPP、循环依赖、JdbcTemplate**
 
 **重点攻克（面试高频 🔥🔥🔥）**：
 1. IoC / DI 本质、Bean 生命周期扩展点、作用域、循环依赖与三级缓存
@@ -148,3 +169,7 @@ mvn -pl fufu-spring-core -Dtest=XxxTest test  # 只跑单个测试类
 | 日期 | 里程碑 | 验证结果 / 要点 |
 |---|---|---|
 | 2026-11-23 | 搭建多模块父工程 + Spring 7 整合 HikariCP + MyBatis 3.6 + JUnit 6 | `Test02` 实测通过：成功连接远端 MySQL 8.4.11（`127.0.0.1:3307/mybatis`），`UserMapper.selectAll()` 查出 `tb_user` 共 3 条并输出彩色 SQL 日志；踩坑与版本对照已记入第 5、6 节 |
+| 2026-11-24 | 新增 `fufu-spring-p01` 巩固练习模块并接入聚合父工程 | 最小依赖（spring-context + jakarta annotations + logback + test）、`P01Config`、`logback.xml`、`ModuleSmokeTest` 就位；Lab 01 拆成 4 小步逐步练习 |
+| 2026-11-24 | Lab 01-1 完成 | `BookDao`/`BookService` 由 `@Repository`/`@Service` 注册，`BookServiceImpl` 改为构造器注入；`IocStep1Test` 能取到 Bean 并调用成功。用户决定断言后续专项补练，当前优先注解开发 |
+| 2026-11-24 | Lab 01-2 完成 | `@PostConstruct`/`@PreDestroy` 实测顺序正确；确认容器不 `close()` 就不触发销毁；原型作用域下容器不管理销毁（每次 `getBean` 新建，`@PreDestroy` 不执行） |
+| 2026-11-24 | 按用户课程资料重排 p01 路线 | 课程（黑马 SSM day01–03）未覆盖 BeanPostProcessor / 循环依赖；Lab 01-3/01-4 暂缓，主线改为数据源 + JUnit → MyBatis 整合 → AOP → 事务 |

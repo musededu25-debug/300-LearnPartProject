@@ -24,6 +24,7 @@
 
     <modules>
         <module>fufu-spring-core</module>
+        <module>fufu-spring-p01</module>
     </modules>
 
     <properties>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  fufu-spring-p01 · Logback 控制台彩色日志配置
+
+  【说明】
+    - 与 fufu-spring-core 保持同一套输出格式，便于对照观察。
+    - 练习 Bean 生命周期时，可取消下方 spring.beans 相关 <logger> 的注释，
+      观察容器创建 Bean、调用初始化方法的完整过程（日志较多，按需开启）。
+-->
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) %magenta([%thread]) %cyan(%logger{36}) - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 自己的练习代码开启 DEBUG -->
+    <logger name="com.fufu.spring.p01" level="DEBUG"/>
+
+    <!-- 按需开启：观察 Bean 注册、实例化与初始化（日志较多，排查生命周期顺序时再开） -->
+    <!-- <logger name="org.springframework.beans.factory" level="DEBUG"/> -->
+
+    <!-- 按需开启：观察容器刷新全过程 -->
+    <!-- <logger name="org.springframework.context" level="DEBUG"/> -->
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

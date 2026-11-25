@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Spring 7 巩固练习模块 p01：
+    - 不直接参考 fufu-spring-core 的现成代码，按 Lab 一步一步自己写；
+    - 依赖按需引入：Lab 01 只用了 spring-context + jakarta annotations；
+      Lab 02 起追加 spring-jdbc、HikariCP、MySQL 驱动，Lab 03 再加 aspectjweaver、MyBatis。
+    - 测试方式与主线一致：JUnit 6 + @SpringJUnitConfig。
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.fufu</groupId>
+        <artifactId>fufu-spring-springboot-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fufu-spring-p01</artifactId>
+    <packaging>jar</packaging>
+    <name>fufu-spring-p01</name>
+    <description>Spring 7 巩固练习 p01：按步骤手写 IoC / 生命周期 / AOP / 事务</description>
+
+    <dependencies>
+        <!-- 1. Spring 核心容器：@Configuration / @ComponentScan / @Component / 构造器注入 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- 2. Jakarta 注解：@PostConstruct / @PreDestroy / @Resource（不用 javax.annotation） -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+
+        <!-- 3. Spring JDBC：DataSource 整合、JdbcTemplate、spring-tx（Lab 02 起使用） -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <!-- 4. 数据库连接池：HikariCP（课程用 Druid，这里统一用 Hikari） -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+
+        <!-- 5. MySQL 驱动：连接本机 127.0.0.1:3307 转发的远端 MySQL -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+
+        <!-- 6. 日志：观察容器启动、Bean 创建顺序与生命周期回调 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <!-- 7. 测试：Spring 整合 JUnit 6 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
