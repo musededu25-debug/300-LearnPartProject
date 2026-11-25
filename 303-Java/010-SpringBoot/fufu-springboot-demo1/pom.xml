@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  demo1：Spring Boot 快速入门模块
+
+  当前只引入最小集合：
+    - spring-boot-starter-web：内嵌 Tomcat + Spring MVC + Jackson
+    - spring-boot-starter-test：JUnit 6 + Spring Test + AssertJ（仅测试作用域）
+  后续章节用到 MyBatis / MyBatis-Plus / Druid 时，在对应新模块中按需引入，
+  不往 demo1 里堆依赖。
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.fufu</groupId>
+        <artifactId>fufu-springboot-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>fufu-springboot-demo1</artifactId>
+    <name>fufu-springboot-demo1</name>
+    <description>Spring Boot 4 快速入门：启动类、分层、第一个 REST 接口</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 提供 mvn spring-boot:run 与可执行 jar 打包能力 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Spring Boot 4 学习 · 聚合父工程（packaging=pom）
+
+  设计约定：
+    - 本工程是「010-SpringBoot」学习区的聚合工程，父 POM 直接继承 spring-boot-starter-parent，
+      这样所有子模块自动获得 Boot 的依赖版本管理、编译插件与打包插件配置。
+    - 每个可独立启动的学习模块（一个章节 / 一个案例）在 <modules> 中登记，互不干扰。
+    - 新章节需要新的依赖组合时，优先新建子模块，而不是把 demo1 改乱。
+
+  注意：本工程与 008-spring_springBoot_v2 完全独立。008 只做纯 Spring 7 核心与 SSM，
+        Spring Boot 相关内容统一放在这里。
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.3</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.fufu</groupId>
+    <artifactId>fufu-springboot-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>fufu-springboot-parent</name>
+    <description>Spring Boot 4 学习父工程（JDK 21），按黑马课程章节推进</description>
+
+    <modules>
+        <module>fufu-springboot-demo1</module>
+    </modules>
+
+    <properties>
+        <!-- 统一编译级别：本机有 JDK 21 与 27，工程固定按 21 编译，避免版本漂移 -->
+        <java.version>21</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+</project>

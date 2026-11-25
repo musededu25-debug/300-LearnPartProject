@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: fufu-springboot-demo1
+
+# 只打印本项目包的调试日志，避免控制台被框架日志刷屏
+logging:
+  level:
+    com.fufu.boot: debug
