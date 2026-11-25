@@ -23,13 +23,14 @@
 
 | 目录 | 状态 | 说明 |
 |------|------|------|
-| `303-Java/008-spring_springBoot_v2/` | 🟢 当前主线 | Spring 7 核心重塑 → 轻量 SSM 整合 → Spring Boot 4 → MyBatis-Plus（JDK 21，多模块父工程，见 `CLAUDE.md`） |
+| `303-Java/008-spring_springBoot_v2/` | 🟢 当前主线 | 纯 Spring 7 核心重塑 → 轻量 SSM 整合（Spring Boot 已拆到 010，本目录不再新增 Boot 子模块；JDK 21，多模块父工程，见 `CLAUDE.md`） |
+| `303-Java/010-SpringBoot/` | 🟢 Spring Boot 主线 | Spring Boot 4 学习（跟黑马课程章节、代码按 Boot 4 改写；JDK 21，多模块父工程，见 `CLAUDE.md`） |
 | `303-Java/007-CS/001-dataStructure/` | 🟢 持续刷题 | 数据结构与 LeetCode 题解（JDK 21，单模块 Maven，见 `CLAUDE.md`） |
 | `303-Java/006-Mybatis/heima/` | 🟡 阶段练习 | 黑马 MyBatis 课程（JDK 17，多模块父工程，见 `CLAUDE.md`） |
 | `303-Java/005-SpringMVC/heima/` | ✅ 已完结 | 黑马 SpringMVC 课程（JDK 17 + Tomcat 11，保留复习，见 `CLAUDE.md`） |
 | `303-Java/001`–`004`、`009-tools` | 📦 历史归档 | 早期 JavaSE / JavaWeb / Maven / 旧 Spring 练习，非必要不翻阅 |
 
-> 通用环境提醒：本机 JDK 21 + Maven 3.10；远端 MySQL 经本机 **`127.0.0.1:3307`** 端口转发（不是 3306），账号密码只放本地配置文件，不写进文档。
+> 通用环境提醒：本机装有 JDK 21/25/27（PATH 默认 java 是 27），各工程统一按 **JDK 21** 编译；Maven 3.10；远端 MySQL 经本机 **`127.0.0.1:3307`** 端口转发（不是 3306），账号密码只放本地配置文件，不写进文档。
 
 ## 笔记中仍需实机确认的点
 
