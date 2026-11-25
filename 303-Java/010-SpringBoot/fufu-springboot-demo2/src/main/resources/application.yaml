@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: fufu-springboot-demo2
+server:
+  port: 8081
+
+
+student:
+  name: 张三
+  study-days:
+    - 10
+    - 20
+    - 30
+    - 40
+  targetrole:
+    - teacher
+    - 程序员
+  skills:
+    - Spring
+    - SpringBoot
+    - SpringMVC

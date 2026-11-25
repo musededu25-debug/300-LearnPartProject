@@ -1,7 +1,9 @@
 package com.fufu.boot;
 
+import com.fufu.boot.config.EnterpriseProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * Spring Boot 应用启动类。
@@ -17,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * controller / service / mapper 等都要在它的子包下，否则扫不到。
  */
 @SpringBootApplication
+@EnableConfigurationProperties(EnterpriseProperties.class)
 public class FufuBootDemo1Application {
 
     public static void main(String[] args) {

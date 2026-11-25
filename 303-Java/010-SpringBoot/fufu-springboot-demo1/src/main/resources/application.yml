@@ -9,3 +9,13 @@ spring:
 logging:
   level:
     com.fufu.boot: debug
+
+# 第 2 篇演示：成组业务配置（将绑定到 EnterpriseProperties）
+enterprise:
+  name: fufu-tech
+  age: 6
+  tel: "400-618-4000"
+  subjects:
+    - Java
+    - Spring Boot
+    - MySQL

@@ -21,13 +21,13 @@
 
 | 章 | 课程内容 | 本项目落地 | 状态 |
 |---|---|---|---|
-| 1 | SpringBoot 简介 + 快速入门（起步依赖、内嵌 Tomcat、`@RestController`） | `fufu-springboot-demo1` 已就位 | 🟡 可开始 |
-| 2 | 配置文件：properties / yaml、读取数据（`@Value` / `@ConfigurationProperties`）、多环境、配置文件分类 | 在 `demo1` 内按包练习，或新建 `fufu-springboot-demo2` | ⏳ 待开始 |
-| 3 | SpringBoot 整合 JUnit | `demo1` 已有 `@SpringBootTest` 示例，按课程补练习 | ⏳ 待开始 |
-| 4 | SpringBoot 整合 MyBatis（含 Druid 数据源） | 新建 `fufu-springboot-demo2`（需数据库） | ⏳ 待开始 |
+| 1 | SpringBoot 简介 + 快速入门（起步依赖、内嵌 Tomcat、`@RestController`） | `fufu-springboot-demo1` 已跑通 + 新版 IDEA 建模块验证 | ✅ 第一遍过关（待复习） |
+| 2 | 配置文件：properties / yaml、读取数据（`@Value` / `@ConfigurationProperties`）、多环境、配置文件分类 | 已在 `demo1` 对照并独立在 `demo2` 跑通 YAML + `record` + `@ConfigurationPropertiesScan` + `@Value` | ✅ 第一遍过关（待复习） |
+| 3 | SpringBoot 整合 JUnit | `demo1` 已有 `@SpringBootTest` 示例；概念已通读，切片测试待结合 `05-JUnit` 补跑 | 🟡 学习中 |
+| 4 | SpringBoot 整合 MyBatis（含 Druid 数据源） | 新建独立子模块（需远端 MySQL `127.0.0.1:3307`） | ⏳ 待开始 |
 | 5 | 综合案例：图书管理（课程用 `tbl_book`，SSM 分层） | 新建 `fufu-springboot-case` 独立模块 | ⏳ 待开始 |
 | 6+ | MyBatis-Plus（标准 CRUD、分页、条件查询、逻辑删除、代码生成器） | 新建模块，按 `MyBatisPlus.md` 推进 | ⏳ 待开始 |
-| 补充 | 原理篇（自动配置原理、自定义 starter） | 课程笔记未覆盖，跑完主线后按需补 | ⏸ 暂缓 |
+| 补充 | 原理篇（自动配置原理、自定义 starter） | 笔记 `05-自动配置原理与自定义Starter.md` 已就位，代码按需实操 | ⏳ 待开始 |
 
 ---
 
@@ -183,9 +183,10 @@ java -jar fufu-springboot-demo1/target/fufu-springboot-demo1-1.0-SNAPSHOT.jar
 
 总规则以仓库根 `CLAUDE.md` 为准（先走路由，不扫库）：
 
-- `01-learn/02-Framework/03-SpringBoot/00-INDEX-SpringBoot.md`（当前「未开始」，学完一章再补）
-- 上游：`01-learn/02-Framework/01-Spring/00-INDEX-Spring.md`
-- 课程旧笔记（只读，迁移时按需引用）：`200-MarkdownHome/通用/100-编程相关/102-学习笔记/012-SpringBoot`
+- `01-learn/02-Framework/03-SpringBoot/00-INDEX-SpringBoot.md`（已建齐 01–05 章 + `98-附录-SpringBoot常用注解手册` + `99-速查表-SpringBoot`，全部对齐 Boot 4.1.3 时效）
+- `01-learn/02-Framework/06-MyBatisPlus/00-INDEX-MyBatisPlus.md`（已建齐 01–05 章 + `98-附录-MyBatisPlus常用注解与API手册` + `99-速查表-MyBatisPlus`，对齐 MP 3.5.18 + Boot 4.1.3 + `mybatis-plus-jsqlparser` 分页拆分时效）
+- 上游：`01-learn/02-Framework/01-Spring/00-INDEX-Spring.md`、`01-learn/05-Tools/05-JUnit/00-INDEX-JUnit.md`
+- 课程旧笔记（空目录留档）：`200-MarkdownHome/通用/100-编程相关/102-学习笔记/012-SpringBoot`
 
 ---
 
@@ -194,3 +195,4 @@ java -jar fufu-springboot-demo1/target/fufu-springboot-demo1-1.0-SNAPSHOT.jar
 | 日期 | 里程碑 | 验证结果 / 要点 |
 |---|---|---|
 | 2026-11-25 | 初始化 `010-SpringBoot` 工程 | 父工程继承 `spring-boot-starter-parent:4.1.3`；`demo1` 启动类 + controller/service 分层 + `application.yml` 就位；`mvn test` 通过（JUnit 6.0.3 / Spring 7.0.11 / Tomcat 11.0.27）；实测 `GET /hello` 返回 200 |
+| 2026-11-25 | 完成 Spring Boot 4 全套笔记建档 & 第 1–3 章推进 | 建齐 `01–05` 章 + `98` 注解附录 + `99` 速查表并核对 Boot 4.1.3 时效（Undertow 移除 / Jackson 3 / `webmvc-test` / `@MockitoBean` / `RestTestClient`）；第 1、2 章完成第一遍实操过关（`demo1`/`demo2`），第 3 章完成概念通读 |
